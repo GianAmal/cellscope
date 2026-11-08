@@ -280,8 +280,8 @@ passes on an empty-but-valid data file.
 - [x] Use **bio-curator** to add the 5 cell types with blurbs
 - [x] Use **bio-curator** to add genes in 3 batches of ~5, with proteins
 - [x] Run `npm run validate:data` after each batch
-- [ ] Use **bio-factcheck** on the complete file
-- [ ] Fix every WRONG verdict; resolve or delete every UNVERIFIABLE entry
+- [x] Use **bio-factcheck** on the complete file
+- [x] Fix every WRONG verdict; resolve or delete every UNVERIFIABLE entry
 
 Suggested gene set to start (curator must verify all of it): `CKM`, `ACTA1`,
 `SCN2A`, `SNAP25`, `INS`, `GCK`, `ALB`, `CYP3A4`, `HBB`, `SLC2A1`, `ATP5F1A`,

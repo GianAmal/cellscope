@@ -126,6 +126,7 @@ cellTypes.forEach((c, i) => {
   str(c, 'name', p)
   str(c, 'blurb', p)
   oneOf(c, 'shape', CELL_SHAPES, p)
+  if (c.shapeNote !== undefined) str(c, 'shapeNote', p)
   arr(c, 'organelles', p).forEach((id, j) => {
     if (!ORGANELLE_IDS.includes(id as never)) err(`${p}.organelles[${j}]`, `unknown organelle "${id}"`)
     else if (!definedOrganelles.has(id)) err(`${p}.organelles[${j}]`, `organelle "${id}" is not defined in organelles[]`)

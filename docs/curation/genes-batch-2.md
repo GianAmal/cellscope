@@ -125,3 +125,10 @@ plainSummary: GCK 25, ALB 25, CYP3A4 23, HBB 23, SLC2A1 23. whatHappensIfBroken:
 - CYP3A4 cluster #CC79A7 ×12 (CKM already uses #E69F00 cluster)
 - HBB sphere #D55E00 ×16
 - SLC2A1 ring #009E73 ×10
+
+## Post-fact-check edits (main session)
+
+- GCK hepatocyte 5 → 31; HBB hepatocyte 24 → 0 (see README "Documented exceptions").
+- HBB whatHappensIfBroken: one changed copy gives sickle cell *trait*, not disease; text now says "both gene copies" (MedlinePlus HBB).
+- GCK whatHappensIfBroken: "slow to notice" → "need more sugar before they release insulin" (higher glucose threshold, not a delay).
+- CYP3A4 plainSummary: "most of the medicines" → "many of the medicines".

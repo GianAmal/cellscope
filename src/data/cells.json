@@ -32,9 +32,11 @@
     {
       "id": "mitochondrion",
       "name": "Mitochondrion",
-      "blurb": "Makes the ATP energy that powers the cell, using a chain of proteins called the electron transport chain.",
+      "blurb": "Makes most of the cell's ATP energy, using oxygen and a chain of proteins called the electron transport chain.",
       "sources": [
-        "https://www.proteinatlas.org/humanproteome/subcellular/mitochondria"
+        "https://www.proteinatlas.org/humanproteome/subcellular/mitochondria",
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-3-erythrocytes",
+        "https://openstax.org/books/biology-2e/pages/7-4-oxidative-phosphorylation"
       ]
     },
     {
@@ -111,6 +113,7 @@
       "name": "Liver cell (hepatocyte)",
       "blurb": "The liver's main cell. It processes nutrients, toxins and wastes from the blood and makes bile, with plenty of mitochondria to power the work.",
       "shape": "round",
+      "shapeNote": "Shape simplified: real liver cells are many-sided (polygonal) and packed in plates.",
       "organelles": [
         "nucleus",
         "cytosol",
@@ -130,7 +133,8 @@
         "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder",
         "https://pubmed.ncbi.nlm.nih.gov/28301072/",
         "https://pubmed.ncbi.nlm.nih.gov/38214802/",
-        "https://pubmed.ncbi.nlm.nih.gov/24433144/"
+        "https://pubmed.ncbi.nlm.nih.gov/24433144/",
+        "https://www.aasld.org/liver-fellow-network/core-series/pathology-pearls/normal-liver-histology-101"
       ]
     },
     {
@@ -157,7 +161,7 @@
     {
       "id": "beta",
       "name": "Pancreatic beta cell",
-      "blurb": "Senses high blood sugar and releases insulin, a hormone that helps body cells take in glucose and burn it for ATP.",
+      "blurb": "Senses high blood sugar and releases insulin, a hormone that helps body cells take in glucose to use for energy or store for later.",
       "shape": "round",
       "organelles": [
         "nucleus",
@@ -188,11 +192,11 @@
       "plainSummary": "Quickly recharges ATP, the cell's energy currency, using a backup store called creatine phosphate. Busiest in muscle during sudden bursts of effort.",
       "proteinId": "ck_m",
       "expression": {
-        "neuron": 5,
-        "muscle": 72,
+        "neuron": 0,
+        "muscle": 100,
         "hepatocyte": 0,
-        "rbc": 7,
-        "beta": 8
+        "rbc": 0,
+        "beta": 0
       },
       "sources": [
         "https://www.uniprot.org/uniprotkb/P06732/entry",
@@ -209,7 +213,7 @@
       "proteinId": "actin_a1",
       "expression": {
         "neuron": 10,
-        "muscle": 76,
+        "muscle": 100,
         "hepatocyte": 0,
         "rbc": 0,
         "beta": 12
@@ -229,7 +233,7 @@
       "proteinId": "nav1_2",
       "expression": {
         "neuron": 71,
-        "muscle": 4,
+        "muscle": 0,
         "hepatocyte": 9,
         "rbc": 0,
         "beta": 27
@@ -249,9 +253,9 @@
       "proteinId": "snap25",
       "expression": {
         "neuron": 77,
-        "muscle": 8,
-        "hepatocyte": 6,
-        "rbc": 1,
+        "muscle": 0,
+        "hepatocyte": 0,
+        "rbc": 0,
         "beta": 64
       },
       "sources": [
@@ -288,8 +292,8 @@
       "proteinId": "glucokinase",
       "expression": {
         "neuron": 22,
-        "muscle": 1,
-        "hepatocyte": 5,
+        "muscle": 0,
+        "hepatocyte": 31,
         "rbc": 0,
         "beta": 44
       },
@@ -311,7 +315,7 @@
         "muscle": 0,
         "hepatocyte": 100,
         "rbc": 0,
-        "beta": 8
+        "beta": 0
       },
       "sources": [
         "https://www.uniprot.org/uniprotkb/P02768/entry",
@@ -324,14 +328,14 @@
       "id": "CYP3A4",
       "symbol": "CYP3A4",
       "fullName": "cytochrome P450 family 3 subfamily A member 4",
-      "plainSummary": "Makes an enzyme, found mostly in liver and gut cells, that processes most of the medicines people take, plus some hormones and fats.",
+      "plainSummary": "Makes an enzyme, found mostly in liver and gut cells, that processes many of the medicines people take, plus some hormones and fats.",
       "proteinId": "cyp3a4",
       "expression": {
-        "neuron": 6,
-        "muscle": 17,
+        "neuron": 0,
+        "muscle": 10,
         "hepatocyte": 90,
         "rbc": 0,
-        "beta": 2
+        "beta": 0
       },
       "sources": [
         "https://www.uniprot.org/uniprotkb/P08684/entry",
@@ -347,11 +351,11 @@
       "plainSummary": "Makes beta-globin, one of the building blocks of hemoglobin. Hemoglobin fills red blood cells and carries oxygen from the lungs to the body.",
       "proteinId": "beta_globin",
       "expression": {
-        "neuron": 4,
-        "muscle": 7,
-        "hepatocyte": 24,
+        "neuron": 0,
+        "muscle": 0,
+        "hepatocyte": 0,
         "rbc": 100,
-        "beta": 2
+        "beta": 0
       },
       "sources": [
         "https://www.uniprot.org/uniprotkb/P68871/entry",
@@ -368,7 +372,7 @@
       "proteinId": "glut1",
       "expression": {
         "neuron": 19,
-        "muscle": 1,
+        "muscle": 0,
         "hepatocyte": 13,
         "rbc": 56,
         "beta": 28
@@ -428,9 +432,9 @@
       "plainSummary": "Makes myoglobin, a protein in heart and skeletal muscle cells that stores oxygen and helps it spread through the cell.",
       "proteinId": "myoglobin",
       "expression": {
-        "neuron": 1,
-        "muscle": 70,
-        "hepatocyte": 6,
+        "neuron": 0,
+        "muscle": 100,
+        "hepatocyte": 0,
         "rbc": 0,
         "beta": 11
       },
@@ -449,7 +453,7 @@
       "proteinId": "gapdh",
       "expression": {
         "neuron": 61,
-        "muscle": 46,
+        "muscle": 100,
         "hepatocyte": 82,
         "rbc": 75,
         "beta": 83
@@ -457,7 +461,8 @@
       "sources": [
         "https://www.uniprot.org/uniprotkb/P04406/entry",
         "https://www.ncbi.nlm.nih.gov/gene/2597",
-        "https://www.proteinatlas.org/ENSG00000111640-GAPDH/single+cell+type"
+        "https://www.proteinatlas.org/ENSG00000111640-GAPDH/single+cell+type",
+        "https://pubmed.ncbi.nlm.nih.gov/40209323/"
       ]
     }
   ],
@@ -520,7 +525,7 @@
       "geneId": "INS",
       "location": "golgi",
       "job": "Made as a longer precursor (proinsulin) that is processed and packed into storage granules, then released into the blood, where it signals cells to take up glucose.",
-      "whatHappensIfBroken": "Without working insulin, sugar builds up in the blood: diabetes. Some INS changes cause diabetes in babies under six months old; others cause diabetes in young people.",
+      "whatHappensIfBroken": "Without working insulin, sugar builds up in the blood: diabetes. Some rare INS changes cause diabetes in babies under six months old; others cause diabetes in young people.",
       "visual": {
         "primitive": "sphere",
         "color": "#009E73",
@@ -533,7 +538,7 @@
       "geneId": "GCK",
       "location": "cytosol",
       "job": "Adds a phosphate to glucose, the first step in burning it for energy or storing it as glycogen. It only works fast when glucose is plentiful, so it acts as a glucose sensor.",
-      "whatHappensIfBroken": "Weaker glucokinase makes beta cells slow to notice rising sugar, so blood sugar stays mildly high from birth (a form of diabetes called GCK-MODY), usually without symptoms.",
+      "whatHappensIfBroken": "Weaker glucokinase means beta cells need more sugar before they release insulin, so blood sugar stays mildly high from birth (a diabetes called GCK-MODY), usually without symptoms.",
       "visual": {
         "primitive": "cluster",
         "color": "#F0E442",
@@ -572,7 +577,7 @@
       "geneId": "HBB",
       "location": "cytosol",
       "job": "Two beta-globin and two alpha-globin chains join to form hemoglobin. Each chain holds an iron-containing heme that grabs oxygen in the lungs and delivers it to tissues.",
-      "whatHappensIfBroken": "One tiny change causes sickle cell disease: red blood cells bend into sickles, die early and block small vessels. Other changes cause beta thalassemia, a shortage of hemoglobin.",
+      "whatHappensIfBroken": "The same tiny change in both copies causes sickle cell anemia: red blood cells bend into sickles, die early and block vessels. Other changes cause beta thalassemia (too little hemoglobin).",
       "visual": {
         "primitive": "sphere",
         "color": "#D55E00",
@@ -637,7 +642,7 @@
       "geneId": "GAPDH",
       "location": "cytosol",
       "job": "Carries out one step of glycolysis in the cytosol: it converts glyceraldehyde 3-phosphate, a three-carbon piece of broken-down glucose, into 1,3-bisphosphoglycerate.",
-      "whatHappensIfBroken": "TODO: verify",
+      "whatHappensIfBroken": "Cells need GAPDH to stay alive, so scientists class it as an essential gene. UniProt, a major protein database, lists no human disease caused by changes in it.",
       "visual": {
         "primitive": "cluster",
         "color": "#0072B2",

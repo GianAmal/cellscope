@@ -47,6 +47,8 @@ export interface CellType {
   name: string
   blurb: string
   shape: CellShape
+  /** Optional caption when the 3D shape is a simplification of the real cell. */
+  shapeNote?: string
   /** Organelles drawn for this cell type (e.g. mature red blood cells lack a nucleus). */
   organelles: OrganelleId[]
   /** Optional per-organelle size multiplier for the 3D scene. 1 = default. */

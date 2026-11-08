@@ -174,3 +174,13 @@ Colors repeat earlier ones (ACTA1, SCN2A) because there are only 7 Okabe-Ito col
   validator now enforces this rule for every gene (see README).
 - **ATP5F1A whatHappensIfBroken** trimmed from 31 to 27 words ("some cases are
   fatal in the first weeks" → "some die within weeks"). Meaning unchanged.
+- GAPDH muscle 46 → 100 (see README "Documented exceptions").
+- GAPDH whatHappensIfBroken: was "TODO: verify". Now states no human disease is
+  clearly linked (UniProt P04406 has no disease section) and that it's counted as
+  an essential gene (Zhang et al. 2025, PMID 40209323, a methods paper that uses
+  GAPDH as an essential-gene locus). The fact-checker's stronger wording ("cells
+  cannot survive without it") was not used: that source doesn't show it directly.
+- Re-check round: GAPDH muscle 100 now comes from the general muscle tissue
+  rule (README), applied equally to CKM, ACTA1 and MB, so GAPDH no longer
+  outranks the muscle markers. GAPDH whatHappensIfBroken reworded so the
+  "no disease" claim rests on UniProt P04406 and "essential" on PMID 40209323.
