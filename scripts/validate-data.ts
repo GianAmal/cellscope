@@ -8,9 +8,11 @@ import { resolve } from 'node:path'
 import {
   CELL_SHAPES,
   CELL_TYPE_IDS,
+  GLOSSARY_MAX_WORDS,
   ORGANELLE_IDS,
   PLAIN_SUMMARY_MAX_WORDS,
   PROTEIN_PRIMITIVES,
+  READING_NOTE_MAX_WORDS,
   WHAT_HAPPENS_IF_BROKEN_MAX_WORDS,
 } from '../src/data/schema.ts'
 
@@ -94,6 +96,8 @@ else {
   str(data.meta, 'expressionNote', 'meta')
 }
 
+const glossary = arr(data, 'glossary', '$').filter((v, i) => isObj(v) || (err(`glossary[${i}]`, 'must be an object'), false)) as Obj[]
+const readingNotes = arr(data, 'readingNotes', '$').filter((v, i) => isObj(v) || (err(`readingNotes[${i}]`, 'must be an object'), false)) as Obj[]
 const organelles = arr(data, 'organelles', '$').filter((v, i) => isObj(v) || (err(`organelles[${i}]`, 'must be an object'), false)) as Obj[]
 const cellTypes = arr(data, 'cellTypes', '$').filter((v, i) => isObj(v) || (err(`cellTypes[${i}]`, 'must be an object'), false)) as Obj[]
 const genes = arr(data, 'genes', '$').filter((v, i) => isObj(v) || (err(`genes[${i}]`, 'must be an object'), false)) as Obj[]
@@ -104,11 +108,31 @@ const proteins = arr(data, 'proteins', '$').filter((v, i) => isObj(v) || (err(`p
   [cellTypes, 'cellTypes'],
   [genes, 'genes'],
   [proteins, 'proteins'],
+  [glossary, 'glossary'],
+  [readingNotes, 'readingNotes'],
 ].forEach(([items, name]) => checkUnique(items as Obj[], name as string))
 
 const definedOrganelles = new Set(organelles.map((o) => o.id))
 const geneById = new Map(genes.map((g) => [g.id, g]))
 const proteinById = new Map(proteins.map((p) => [p.id, p]))
+
+// ---------- glossary & reading notes ----------
+glossary.forEach((g, i) => {
+  const p = `glossary[${i}]`
+  str(g, 'id', p)
+  str(g, 'term', p)
+  str(g, 'definition', p, GLOSSARY_MAX_WORDS)
+  checkSources(g, p)
+})
+readingNotes.forEach((n, i) => {
+  const p = `readingNotes[${i}]`
+  str(n, 'id', p)
+  str(n, 'title', p)
+  str(n, 'text', p, READING_NOTE_MAX_WORDS)
+  arr(n, 'sources', p).forEach((s, j) => {
+    if (typeof s !== 'string' || !/^https?:\/\/\S+$/.test(s)) err(`${p}.sources[${j}]`, `not a valid URL: ${JSON.stringify(s)}`)
+  })
+})
 
 // ---------- organelles ----------
 organelles.forEach((o, i) => {
@@ -213,7 +237,7 @@ proteins.forEach((pr, i) => {
 }
 
 // ---------- report ----------
-const summary = `${organelles.length} organelles, ${cellTypes.length} cell types, ${genes.length} genes, ${proteins.length} proteins`
+const summary = `${glossary.length} glossary terms, ${readingNotes.length} reading notes, ${organelles.length} organelles, ${cellTypes.length} cell types, ${genes.length} genes, ${proteins.length} proteins`
 for (const w of warnings) console.warn(`⚠ ${w}`)
 if (errors.length) {
   for (const e of errors) console.error(`✗ ${e}`)

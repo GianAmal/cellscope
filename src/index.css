@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+/* Okabe-Ito colorblind-safe palette, used across the UI. */
+@theme {
+  --color-oi-blue: #0072B2;
+  --color-oi-orange: #E69F00;
+  --color-oi-vermillion: #D55E00;
+  --color-oi-sky: #56B4E9;
+  --color-oi-green: #009E73;
+}
+
+/* Visible focus everywhere, for keyboard users. */
+:focus-visible {
+  outline: 3px solid #0072B2;
+  outline-offset: 2px;
+  border-radius: 4px;
+}

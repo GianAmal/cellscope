@@ -296,14 +296,14 @@ entry has at least one source URL. Commit.
 ---
 
 ### Phase 2 — 2D app (a complete, shippable product)
-- [ ] **ui-builder**: cell type picker (5 cards)
-- [ ] **ui-builder**: gene list, filterable, showing which cell each is highest in
-- [ ] **ui-builder**: gene detail panel — plain summary, its protein, protein's
+- [x] **ui-builder**: cell type picker (5 cards)
+- [x] **ui-builder**: gene list, filterable, showing which cell each is highest in
+- [x] **ui-builder**: gene detail panel — plain summary, its protein, protein's
       job, what breaks if it fails, source links
-- [ ] **ui-builder**: Recharts bar chart of one gene's expression across all 5
+- [x] **ui-builder**: Recharts bar chart of one gene's expression across all 5
       cell types
-- [ ] **ui-builder**: "How to read this" intro explaining the simplifications
-- [ ] **ui-builder**: compare mode — two cell types side by side, top genes each
+- [x] **ui-builder**: "How to read this" intro explaining the simplifications
+- [x] **ui-builder**: compare mode — two cell types side by side, top genes each
 
 **Done when:** someone who has never seen the project can pick a cell, pick a
 gene, and correctly explain what that gene's protein does. Deploy it. Commit.

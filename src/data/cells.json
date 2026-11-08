@@ -3,6 +3,130 @@
     "version": 1,
     "expressionNote": "Values are 0-100 illustrative scores derived from Human Protein Atlas single-cell RNA data, not raw experimental measurements."
   },
+  "glossary": [
+    {
+      "id": "gene",
+      "term": "Gene",
+      "definition": "A section of DNA, passed from parents to children, that holds instructions, usually for making a protein or part of one.",
+      "sources": [
+        "https://www.genome.gov/genetics-glossary/Gene"
+      ]
+    },
+    {
+      "id": "protein",
+      "term": "Protein",
+      "definition": "A large molecule made of folded chains of building blocks called amino acids; proteins do most of the work inside cells.",
+      "sources": [
+        "https://www.genome.gov/genetics-glossary/Protein"
+      ]
+    },
+    {
+      "id": "rna",
+      "term": "RNA",
+      "definition": "A molecule similar to DNA but usually single-stranded; one type, messenger RNA, carries a gene's instructions for building a protein.",
+      "sources": [
+        "https://www.genome.gov/genetics-glossary/RNA-Ribonucleic-Acid",
+        "https://www.genome.gov/genetics-glossary/Gene-Expression"
+      ]
+    },
+    {
+      "id": "gene_expression",
+      "term": "Gene expression",
+      "definition": "How a gene's instructions get used, mostly by copying them into RNA to make a product; cells control when, where and how much.",
+      "sources": [
+        "https://www.genome.gov/genetics-glossary/Gene-Expression"
+      ]
+    },
+    {
+      "id": "organelle",
+      "term": "Organelle",
+      "definition": "A structure inside a cell with a specific job, much like an organ in the body; the nucleus and mitochondria are examples.",
+      "sources": [
+        "https://www.genome.gov/genetics-glossary/Organelle"
+      ]
+    },
+    {
+      "id": "atp",
+      "term": "ATP",
+      "definition": "A small molecule that stores energy in its chemical bonds; cells release that energy to power their work, so it's called the cell's energy currency.",
+      "sources": [
+        "https://openstax.org/books/biology-2e/pages/6-4-atp-adenosine-triphosphate"
+      ]
+    },
+    {
+      "id": "enzyme",
+      "term": "Enzyme",
+      "definition": "A helper molecule, usually a protein, that speeds up one specific chemical reaction without being used up, so it can work again and again.",
+      "sources": [
+        "https://www.genome.gov/genetics-glossary/Enzyme"
+      ]
+    },
+    {
+      "id": "mutation",
+      "term": "Mutation",
+      "definition": "A change in the DNA sequence; it can happen by mistake when cells copy their DNA, or be caused by certain chemicals or viruses.",
+      "sources": [
+        "https://www.genome.gov/genetics-glossary/Mutation"
+      ]
+    }
+  ],
+  "readingNotes": [
+    {
+      "id": "one_gene_one_protein",
+      "title": "One gene, one protein (simplified)",
+      "text": "The app links each gene to a single protein. In real cells, one gene can make several protein versions by joining its pieces in different combinations (alternative splicing). Many proteins also work as teams of chains, like hemoglobin, which has four.",
+      "sources": [
+        "https://www.genome.gov/genetics-glossary/Alternative-Splicing",
+        "https://openstax.org/books/biology-2e/pages/3-4-proteins"
+      ]
+    },
+    {
+      "id": "scores_are_illustrative",
+      "title": "Scores are approximate guides",
+      "text": "Each 0–100 score comes from Human Protein Atlas data on how much of a gene's RNA single cells contain, put on a log scale and rounded. Tiny amounts count as 0. RNA levels don't always match how much protein a cell actually has.",
+      "sources": [
+        "https://www.proteinatlas.org/humanproteome/single+cell/single+cell+type/method",
+        "https://doi.org/10.1016/j.cell.2016.03.014"
+      ]
+    },
+    {
+      "id": "rbc_precursors",
+      "title": "Red blood cells use precursors",
+      "text": "Mature red blood cells push out their nucleus and most organelles, so they can't make new RNA. Their scores come from the young cells that become red blood cells, and are 0 for proteins whose organelle the mature cell has lost.",
+      "sources": [
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-3-erythrocytes",
+        "https://www.proteinatlas.org/humanproteome/single+cell/single+cell+type/method"
+      ]
+    },
+    {
+      "id": "beta_islet",
+      "title": "Beta cells share islet data",
+      "text": "Beta-cell scores come from data on all pancreatic islet cells mixed together, including beta cells, alpha cells and others. So a score can partly reflect neighbouring islet cells, not beta cells alone.",
+      "sources": [
+        "https://www.proteinatlas.org/humanproteome/single+cell/single+cell+type/method"
+      ]
+    },
+    {
+      "id": "secreted_location",
+      "title": "Exported proteins shown in Golgi",
+      "text": "Some proteins, like insulin and albumin, leave the cell to do their jobs. The app shows them in the Golgi apparatus, where proteins are sorted and packed into tiny bubbles (vesicles) before being released outside the cell.",
+      "sources": [
+        "https://openstax.org/books/biology-2e/pages/4-4-the-endomembrane-system-and-proteins"
+      ]
+    },
+    {
+      "id": "shapes_stylized",
+      "title": "Drawings are simplified, not scaled",
+      "text": "Cell shapes and organelle sizes are simplified drawings, not to scale. They show what is inside each cell type, not its true size or exact shape.",
+      "sources": []
+    },
+    {
+      "id": "data_adjustments",
+      "title": "A few scores were corrected",
+      "text": "A few scores were changed where the single-cell data clearly disagreed with well-established biology, such as stray blood RNA, or muscle data that undercount very common RNAs. Those scores use whole-tissue data or were set to 0, and each change is documented.",
+      "sources": []
+    }
+  ],
   "organelles": [
     {
       "id": "nucleus",

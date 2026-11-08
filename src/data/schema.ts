@@ -27,6 +27,8 @@ export type ProteinPrimitive = (typeof PROTEIN_PRIMITIVES)[number]
 /** Word limits for plain-language fields (bio-curator rules). */
 export const PLAIN_SUMMARY_MAX_WORDS = 25
 export const WHAT_HAPPENS_IF_BROKEN_MAX_WORDS = 30
+export const GLOSSARY_MAX_WORDS = 25
+export const READING_NOTE_MAX_WORDS = 45
 
 export interface Meta {
   version: number
@@ -98,8 +100,29 @@ export interface Protein {
   visual: ProteinVisual
 }
 
+/** Plain-language definition shown as a hover/focus gloss in the UI. */
+export interface GlossaryEntry {
+  id: string
+  term: string
+  /** Max 25 words. */
+  definition: string
+  sources: string[]
+}
+
+/** One paragraph of the "How to read this" intro (deliberate simplifications). */
+export interface ReadingNote {
+  id: string
+  title: string
+  /** Max 45 words. */
+  text: string
+  /** May be empty only for notes purely about this project's own method. */
+  sources: string[]
+}
+
 export interface CellData {
   meta: Meta
+  glossary: GlossaryEntry[]
+  readingNotes: ReadingNote[]
   organelles: Organelle[]
   cellTypes: CellType[]
   genes: Gene[]
