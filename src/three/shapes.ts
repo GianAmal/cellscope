@@ -16,14 +16,32 @@ export interface ShellPart {
    * them read as flat spikes.
    */
   solid?: boolean
+  /**
+   * Links this piece to an entry in cells.json `cellParts`, making it
+   * separately clickable and labelled. Untagged pieces are just the cell's
+   * outer boundary and select the plasma membrane.
+   */
+  partId?: string
 }
 
-/** Half-height of the cell, used to frame the camera. */
+/** Rough half-size of the cell, used for the zoom limits. */
 export const SHELL_RADIUS: Record<CellShape, number> = {
   round: 1.25,
   elongated: 1.9,
   branched: 1.95,
   biconcave: 1.35,
+}
+
+/**
+ * How to frame each shape. A neuron is not centred on the origin — its axon
+ * hangs well below the cell body — so it needs the camera pulled back and
+ * aimed lower, or the axon terminals fall outside the view.
+ */
+export const SHELL_VIEW: Record<CellShape, { distance: number; targetY: number }> = {
+  round: { distance: 2.6, targetY: 0 },
+  elongated: { distance: 4.0, targetY: 0 },
+  branched: { distance: 5.3, targetY: -0.45 },
+  biconcave: { distance: 2.9, targetY: 0 },
 }
 
 function biconcaveProfile(): THREE.Vector2[] {
@@ -89,7 +107,8 @@ function build(shape: CellShape): ShellPart[] {
       const soma = new THREE.SphereGeometry(0.68, 40, 28)
       const dendrite = new THREE.ConeGeometry(0.15, 0.8, 16)
       const axon = new THREE.CylinderGeometry(0.075, 0.11, 1.5, 16)
-      const tip = new THREE.SphereGeometry(0.11, 14, 12)
+      // Big enough to be an easy click target.
+      const tip = new THREE.SphereGeometry(0.15, 16, 14)
       const angles = [-0.75, -0.1, 0.55, 1.2]
       const dendrites: ShellPart[] = angles.map((a, i) => {
         const dir = a + Math.PI / 2
@@ -99,13 +118,17 @@ function build(shape: CellShape): ShellPart[] {
           position: [Math.cos(dir) * 0.88, Math.sin(dir) * 0.88, i % 2 === 0 ? 0.12 : -0.12],
           rotation: [0, 0, dir - Math.PI / 2],
           solid: true,
+          partId: 'dendrite',
         }
       })
       return [
-        { key: 'soma', geometry: soma, position: [0, 0, 0] },
+        { key: 'soma', geometry: soma, position: [0, 0, 0], partId: 'soma' },
         ...dendrites,
-        { key: 'axon', geometry: axon, position: [0.08, -1.25, 0], rotation: [0, 0, 0.05], solid: true },
-        { key: 'axon-tip', geometry: tip, position: [0.14, -2.0, 0], solid: true },
+        { key: 'axon', geometry: axon, position: [0.08, -1.25, 0], rotation: [0, 0, 0.05], solid: true, partId: 'axon' },
+        // Three small end buttons read as terminals better than one blob.
+        { key: 'term-0', geometry: tip, position: [0.14, -2.06, 0], solid: true, partId: 'axon_terminal' },
+        { key: 'term-1', geometry: tip, position: [-0.14, -2.2, 0.14], solid: true, partId: 'axon_terminal' },
+        { key: 'term-2', geometry: tip, position: [0.42, -2.22, -0.12], solid: true, partId: 'axon_terminal' },
       ]
     }
   }

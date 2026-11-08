@@ -7,6 +7,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import {
   CELL_SHAPES,
+  CELL_PART_MAX_WORDS,
   CELL_TYPE_IDS,
   GLOSSARY_MAX_WORDS,
   ORGANELLE_IDS,
@@ -96,6 +97,7 @@ else {
   str(data.meta, 'expressionNote', 'meta')
 }
 
+const cellParts = arr(data, 'cellParts', '$').filter((v, i) => isObj(v) || (err(`cellParts[${i}]`, 'must be an object'), false)) as Obj[]
 const glossary = arr(data, 'glossary', '$').filter((v, i) => isObj(v) || (err(`glossary[${i}]`, 'must be an object'), false)) as Obj[]
 const readingNotes = arr(data, 'readingNotes', '$').filter((v, i) => isObj(v) || (err(`readingNotes[${i}]`, 'must be an object'), false)) as Obj[]
 const organelles = arr(data, 'organelles', '$').filter((v, i) => isObj(v) || (err(`organelles[${i}]`, 'must be an object'), false)) as Obj[]
@@ -110,11 +112,22 @@ const proteins = arr(data, 'proteins', '$').filter((v, i) => isObj(v) || (err(`p
   [proteins, 'proteins'],
   [glossary, 'glossary'],
   [readingNotes, 'readingNotes'],
+  [cellParts, 'cellParts'],
 ].forEach(([items, name]) => checkUnique(items as Obj[], name as string))
 
 const definedOrganelles = new Set(organelles.map((o) => o.id))
 const geneById = new Map(genes.map((g) => [g.id, g]))
 const proteinById = new Map(proteins.map((p) => [p.id, p]))
+
+// ---------- cell parts ----------
+cellParts.forEach((c, i) => {
+  const p = `cellParts[${i}]`
+  str(c, 'id', p)
+  oneOf(c, 'shape', CELL_SHAPES, p)
+  str(c, 'name', p)
+  str(c, 'blurb', p, CELL_PART_MAX_WORDS)
+  checkSources(c, p)
+})
 
 // ---------- glossary & reading notes ----------
 glossary.forEach((g, i) => {
@@ -237,7 +250,7 @@ proteins.forEach((pr, i) => {
 }
 
 // ---------- report ----------
-const summary = `${glossary.length} glossary terms, ${readingNotes.length} reading notes, ${organelles.length} organelles, ${cellTypes.length} cell types, ${genes.length} genes, ${proteins.length} proteins`
+const summary = `${cellParts.length} cell parts, ${glossary.length} glossary terms, ${readingNotes.length} reading notes, ${organelles.length} organelles, ${cellTypes.length} cell types, ${genes.length} genes, ${proteins.length} proteins`
 for (const w of warnings) console.warn(`⚠ ${w}`)
 if (errors.length) {
   for (const e of errors) console.error(`✗ ${e}`)

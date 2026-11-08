@@ -1,60 +1,58 @@
-// The cell's outer shell. The shell IS the plasma membrane, so clicking it
-// selects that organelle. It is drawn back-faces-only, which is the cutaway:
-// the near wall disappears so you look straight inside. Three.js raycasting
-// honours material.side, so clicks also pass through the near wall to the
-// organelles behind it. The faint inner fill stands in for the cytosol.
+// The cell's outer shell.
+//
+// Pieces tagged with a `partId` (a neuron's dendrites, cell body, axon and
+// axon terminals) are separately clickable and labelled from cells.json.
+// Untagged pieces are just the boundary, and select the plasma membrane.
+//
+// Hollow pieces are drawn back-faces-only: the near wall disappears so you see
+// the organelles inside, and because three.js raycasting honours
+// `material.side`, clicks pass through it to them. Thin pieces are solid —
+// there is nothing to look into, and back faces make them read as flat spikes.
 import { useLayoutEffect, useMemo } from 'react'
 import * as THREE from 'three'
 import type { CellShape } from '../data/schema'
 import { DIM_OPACITY, ORGANELLE_COLOR, SHELL_OPACITY } from './palette'
-import { shellParts } from './shapes'
+import { shellParts, type ShellPart } from './shapes'
+
+export const MEMBRANE = 'plasma_membrane'
 
 export interface CellShellProps {
   shape: CellShape
   hasCytosol: boolean
-  membraneSelected: boolean
-  cytosolSelected: boolean
-  dimmed: boolean
-  hovered: boolean
-  onHover: (hovering: boolean) => void
-  onSelect: () => void
+  /** The selected organelle id or cell-part id. */
+  focus: string | null
+  hovered: string | null
+  onHover: (id: string | null) => void
+  onSelect: (id: string) => void
 }
 
-export function CellShell({
-  shape,
-  hasCytosol,
-  membraneSelected,
-  cytosolSelected,
-  dimmed,
-  hovered,
-  onHover,
-  onSelect,
-}: CellShellProps) {
+/** Pieces grouped by what clicking them selects. */
+function groupParts(parts: ShellPart[]): Map<string, ShellPart[]> {
+  const groups = new Map<string, ShellPart[]>()
+  for (const p of parts) {
+    const id = p.partId ?? MEMBRANE
+    const list = groups.get(id)
+    if (list) list.push(p)
+    else groups.set(id, [p])
+  }
+  return groups
+}
+
+export function CellShell({ shape, hasCytosol, focus, hovered, onHover, onSelect }: CellShellProps) {
   const parts = shellParts(shape)
+  const groups = useMemo(() => groupParts(parts), [parts])
 
-  // Two materials: hollow parts you see into, solid parts you see.
-  const material = useMemo(
-    () =>
-      new THREE.MeshStandardMaterial({
-        color: ORGANELLE_COLOR.plasma_membrane,
-        transparent: true,
-        side: THREE.BackSide,
-        roughness: 0.3,
-        depthWrite: false,
-      }),
-    [],
-  )
-
-  const solidMaterial = useMemo(
-    () =>
-      new THREE.MeshStandardMaterial({
-        color: ORGANELLE_COLOR.plasma_membrane,
-        transparent: true,
-        side: THREE.FrontSide,
-        roughness: 0.35,
-      }),
-    [],
-  )
+  // One material per group and face-side, reused across renders; only their
+  // mutable fields change when the selection does.
+  const materials = useMemo(() => {
+    const m = new Map<string, THREE.MeshStandardMaterial>()
+    for (const [id, list] of groupParts(parts)) {
+      for (const solid of [false, true]) {
+        if (list.some((p) => Boolean(p.solid) === solid)) m.set(`${id}:${solid}`, buildMaterial(solid))
+      }
+    }
+    return m
+  }, [parts])
 
   const fill = useMemo(
     () =>
@@ -68,39 +66,48 @@ export function CellShell({
   )
 
   useLayoutEffect(() => {
-    material.opacity = dimmed ? SHELL_OPACITY * 0.5 : membraneSelected || hovered ? 0.42 : SHELL_OPACITY
-    material.emissive.set(membraneSelected ? ORGANELLE_COLOR.plasma_membrane : '#000000')
-    material.emissiveIntensity = membraneSelected ? 0.5 : 0
-    solidMaterial.opacity = dimmed ? 0.25 : membraneSelected || hovered ? 0.85 : 0.6
-    solidMaterial.emissive.set(membraneSelected ? ORGANELLE_COLOR.plasma_membrane : '#000000')
-    solidMaterial.emissiveIntensity = membraneSelected ? 0.4 : 0
-    fill.opacity = cytosolSelected ? 0.5 : dimmed ? DIM_OPACITY * 0.3 : 0.12
-  }, [material, solidMaterial, fill, dimmed, hovered, membraneSelected, cytosolSelected])
+    for (const [key, mat] of materials) {
+      const id = key.slice(0, key.lastIndexOf(':'))
+      const solid = key.endsWith(':true')
+      // Selecting the plasma membrane lights up the whole boundary.
+      const active = focus === id || focus === MEMBRANE
+      const warm = active || hovered === id
+      const dim = focus !== null && !active
+      mat.opacity = solid ? (dim ? 0.22 : warm ? 0.9 : 0.6) : dim ? SHELL_OPACITY * 0.5 : warm ? 0.42 : SHELL_OPACITY
+      mat.emissive.set(active ? ORGANELLE_COLOR.plasma_membrane : '#000000')
+      mat.emissiveIntensity = active ? (solid ? 0.45 : 0.5) : 0
+    }
+    fill.opacity = focus === 'cytosol' ? 0.5 : focus !== null ? DIM_OPACITY * 0.3 : 0.12
+  }, [materials, fill, focus, hovered])
 
   return (
     <group>
-      <group
-        name="plasma_membrane"
-        onPointerOver={(e) => {
-          e.stopPropagation()
-          onHover(true)
-        }}
-        onPointerOut={() => onHover(false)}
-        onClick={(e) => {
-          e.stopPropagation()
-          onSelect()
-        }}
-      >
-        {parts.map((p) => (
-          <mesh
-            key={p.key}
-            geometry={p.geometry}
-            material={p.solid ? solidMaterial : material}
-            position={p.position}
-            rotation={p.rotation}
-          />
-        ))}
-      </group>
+      {[...groups].map(([id, list]) => (
+        <group
+          key={id}
+          name={id}
+          onPointerOver={(e) => {
+            e.stopPropagation()
+            onHover(id)
+          }}
+          onPointerOut={() => onHover(null)}
+          onClick={(e) => {
+            e.stopPropagation()
+            onSelect(id)
+          }}
+        >
+          {list.map((p) => (
+            <mesh
+              key={p.key}
+              geometry={p.geometry}
+              material={materials.get(`${id}:${Boolean(p.solid)}`)}
+              position={p.position}
+              rotation={p.rotation}
+              scale={focus === id && id !== MEMBRANE ? 1.06 : 1}
+            />
+          ))}
+        </group>
+      ))}
 
       {hasCytosol &&
         parts
@@ -118,4 +125,14 @@ export function CellShell({
           ))}
     </group>
   )
+}
+
+function buildMaterial(solid: boolean) {
+  return new THREE.MeshStandardMaterial({
+    color: ORGANELLE_COLOR.plasma_membrane,
+    transparent: true,
+    side: solid ? THREE.FrontSide : THREE.BackSide,
+    roughness: solid ? 0.35 : 0.3,
+    depthWrite: false,
+  })
 }

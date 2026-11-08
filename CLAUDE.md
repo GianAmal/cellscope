@@ -28,4 +28,6 @@ https://gianamal.github.io/cellscope/ — every push to `main` redeploys via
 ## Conventions
 - TypeScript strict mode on.
 - Organelle IDs: nucleus | cytosol | plasma_membrane | mitochondrion | er | golgi
+- Named outer regions of a cell (a neuron's axon, etc.) live in cells.json
+  `cellParts`, keyed by shape, and are clickable in the 3D scene.
 - Commit at the end of each phase. Small commits within a phase are fine.

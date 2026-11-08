@@ -325,6 +325,9 @@ gene, and correctly explain what that gene's protein does. Deploy it. Commit.
 - [x] **scene-builder**: `shape` field drives the shell (round / elongated /
       branched / biconcave)
 - [x] Toggle to disable 3D entirely (`?no3d=1` and a UI switch)
+- [x] Added beyond the original list: named outer parts of a cell are clickable
+      (neuron = dendrites / cell body / axon / axon terminals), from a new
+      `cellParts` section in cells.json
 
 **Done when:** you can rotate a cell, click the mitochondrion, and read its
 blurb. 60fps. Commit.

@@ -4,6 +4,8 @@ import raw from './cells.json'
 import {
   CELL_TYPE_IDS,
   type CellData,
+  type CellPart,
+  type CellShape,
   type CellType,
   type CellTypeId,
   type Gene,
@@ -57,5 +59,12 @@ export function topGenes(cell: CellTypeId, limit = Infinity): Gene[] {
 export function cellHasOrganelle(cell: CellTypeId, organelle: OrganelleId): boolean {
   return getCell(cell)?.organelles.includes(organelle) ?? false
 }
+
+/** Clickable named regions of a cell with this shape (empty for most shapes). */
+export function partsForShape(shape: CellShape): CellPart[] {
+  return data.cellParts.filter((p) => p.shape === shape)
+}
+
+export const getPart = (id: string): CellPart | undefined => data.cellParts.find((p) => p.id === id)
 
 export const cellName = (id: CellTypeId) => getCell(id)?.name ?? id

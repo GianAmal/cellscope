@@ -3,6 +3,7 @@
 import { Suspense, lazy } from 'react'
 import { getCell } from '../data'
 import { useSelection } from '../state/selection'
+import { CellPartList } from './CellPartList'
 import { OrganelleList } from './OrganelleList'
 
 // Loaded only when 3D is on, so the 2D app never downloads three.js.
@@ -39,8 +40,9 @@ export function CellView() {
         >
           <CellScene
             cell={cell}
-            selected={sel.organelle}
-            onSelect={(organelle) => dispatch({ type: 'setOrganelle', organelle })}
+            focus={sel.organelle ?? sel.cellPart}
+            onSelectOrganelle={(organelle) => dispatch({ type: 'setOrganelle', organelle })}
+            onSelectPart={(part) => dispatch({ type: 'setPart', part })}
           />
         </Suspense>
       ) : (
@@ -49,6 +51,7 @@ export function CellView() {
         </p>
       )}
 
+      <CellPartList cell={cell} />
       <OrganelleList cell={cell} />
     </section>
   )

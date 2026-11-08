@@ -29,6 +29,7 @@ export const PLAIN_SUMMARY_MAX_WORDS = 25
 export const WHAT_HAPPENS_IF_BROKEN_MAX_WORDS = 30
 export const GLOSSARY_MAX_WORDS = 25
 export const READING_NOTE_MAX_WORDS = 45
+export const CELL_PART_MAX_WORDS = 28
 
 export interface Meta {
   version: number
@@ -119,6 +120,21 @@ export interface ReadingNote {
   sources: string[]
 }
 
+/**
+ * A named, clickable region of a cell's outline — a neuron's axon, say.
+ * Parts belong to a `shape`, so every cell type drawn with that shape gets
+ * them. Unlike organelles these are regions of the cell itself, which is why
+ * they are a separate list rather than more OrganelleIds.
+ */
+export interface CellPart {
+  id: string
+  shape: CellShape
+  name: string
+  /** One plain sentence, max 28 words. */
+  blurb: string
+  sources: string[]
+}
+
 export interface CellData {
   meta: Meta
   glossary: GlossaryEntry[]
@@ -127,4 +143,5 @@ export interface CellData {
   cellTypes: CellType[]
   genes: Gene[]
   proteins: Protein[]
+  cellParts: CellPart[]
 }

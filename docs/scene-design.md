@@ -28,6 +28,28 @@ Treating the membrane and cytosol as the container rather than as objects
 floating inside it matches the biology and avoids two meshes that would sit on
 top of everything else and swallow clicks.
 
+## Named parts of the outline
+
+Pieces of a shell can carry a `partId` that matches an entry in the
+`cellParts` list in `cells.json`. Those pieces become separately clickable and
+labelled. A neuron has four: dendrites, cell body (soma), axon and axon
+terminals; every other shape has none, so its whole outline selects the plasma
+membrane as before.
+
+Parts belong to a **shape**, not a cell type, so any future cell drawn
+`branched` gets them for free. They are a separate list rather than new
+`OrganelleId`s because they are regions of the cell itself, not organelles —
+and like every other claim in the app, each one carries a sourced blurb.
+
+Selecting a part and selecting an organelle are mutually exclusive: one thing
+is highlighted at a time, in `cellPart` or `organelle` on the shared store.
+
+Clicking the cell body is worth describing, because the cutaway makes it
+subtle: the ray passes through the invisible near wall, hits an organelle if
+one is behind that pixel, and otherwise lands on the body's far wall and
+selects the soma. So clicking an organelle picks the organelle, and clicking
+a clear patch of the body picks the body — which is what a reader expects.
+
 ## The cutaway
 
 The shell is drawn **back-faces-only** (`side: THREE.BackSide`). The near wall
@@ -83,5 +105,8 @@ scene, so clicking a mesh and pressing a button do exactly the same thing. With
 ## Known rough edges
 
 - The neuron's dendrites are stylized cones, not branching trees.
+- The curated soma blurb places "adding up incoming signals" in the cell body.
+  Sources put summation precisely at the axon hillock, a structure within the
+  cell body. A deliberate coarsening; worth revisiting if a fifth part is added.
 - The cutaway is subtle on the biconcave red blood cell, which has nothing
   inside it to reveal.
