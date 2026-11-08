@@ -317,17 +317,20 @@ gene, and correctly explain what that gene's protein does. Deploy it. Commit.
 ---
 
 ### Phase 3 — 3D cell shell (no genes yet)
-- [ ] **Plan** agent: decide the scene graph and how cell shape is parameterized
-- [ ] **scene-builder**: `<CellScene>` with orbit controls, lighting, a cutaway
+- [x] Scene graph and shape parameterization decided (done in the main session, not the Plan agent; written up in docs/scene-design.md)
+- [x] **scene-builder**: `<CellScene>` with orbit controls, lighting, a cutaway
       membrane
-- [ ] **scene-builder**: six organelle components, each hoverable with a label
-- [ ] **scene-builder**: click an organelle → it highlights, others dim
-- [ ] **scene-builder**: `shape` field drives the shell (round / elongated /
+- [x] **scene-builder**: six organelle components, each hoverable with a label
+- [x] **scene-builder**: click an organelle → it highlights, others dim
+- [x] **scene-builder**: `shape` field drives the shell (round / elongated /
       branched / biconcave)
-- [ ] Toggle to disable 3D entirely (`?no3d=1` and a UI switch)
+- [x] Toggle to disable 3D entirely (`?no3d=1` and a UI switch)
 
 **Done when:** you can rotate a cell, click the mitochondrion, and read its
 blurb. 60fps. Commit.
+
+> Frame rate still unverified: the automated browser throttles background
+> pages. Needs one check on a real machine.
 
 ---
 

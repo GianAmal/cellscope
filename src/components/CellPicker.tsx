@@ -1,7 +1,5 @@
-import { cellTypes, getOrganelle } from '../data'
-import { ORGANELLE_IDS } from '../data/schema'
+import { cellTypes } from '../data'
 import { useSelection } from '../state/selection'
-import { Term } from './Term'
 
 export function CellPicker() {
   const { sel, dispatch } = useSelection()
@@ -36,32 +34,6 @@ export function CellPicker() {
           )
         })}
       </div>
-      <CellSummary />
     </section>
-  )
-}
-
-/** Organelles the selected cell has and lacks, plus any shape caveat. */
-function CellSummary() {
-  const { sel } = useSelection()
-  const cell = cellTypes.find((c) => c.id === sel.cell)
-  if (!cell) return null
-  const missing = ORGANELLE_IDS.filter((o) => !cell.organelles.includes(o))
-  const name = (id: (typeof ORGANELLE_IDS)[number]) => getOrganelle(id)?.name ?? id
-  return (
-    <div className="mt-3 rounded-lg border border-slate-200 bg-white p-3 text-sm text-slate-700">
-      <p>
-        <strong>
-          <Term id="organelle">Organelles</Term> in a {cell.name.toLowerCase()}:
-        </strong>{' '}
-        {cell.organelles.map(name).join(', ')}.
-      </p>
-      {missing.length > 0 && (
-        <p className="mt-1">
-          <strong>Missing:</strong> {missing.map(name).join(', ')}.
-        </p>
-      )}
-      {cell.shapeNote && <p className="mt-1 italic text-slate-600">{cell.shapeNote}</p>}
-    </div>
   )
 }
