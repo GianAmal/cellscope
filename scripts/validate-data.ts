@@ -55,6 +55,14 @@ function arr(o: Obj, key: string, path: string): unknown[] {
   return v
 }
 
+function checkSources(o: Obj, path: string) {
+  const sources = arr(o, 'sources', path)
+  if (sources.length === 0) err(`${path}.sources`, 'needs at least one source URL')
+  sources.forEach((s, j) => {
+    if (typeof s !== 'string' || !/^https?:\/\/\S+$/.test(s)) err(`${path}.sources[${j}]`, `not a valid URL: ${JSON.stringify(s)}`)
+  })
+}
+
 function checkUnique(items: Obj[], section: string) {
   const seen = new Set<string>()
   items.forEach((item, i) => {
@@ -108,6 +116,7 @@ organelles.forEach((o, i) => {
   oneOf(o, 'id', ORGANELLE_IDS, p)
   str(o, 'name', p)
   str(o, 'blurb', p)
+  checkSources(o, p)
 })
 
 // ---------- cellTypes ----------
@@ -131,6 +140,7 @@ cellTypes.forEach((c, i) => {
   arr(c, 'signatureGenes', p).forEach((g, j) => {
     if (!geneById.has(g)) err(`${p}.signatureGenes[${j}]`, `gene "${g}" not found in genes[]`)
   })
+  checkSources(c, p)
 })
 
 // ---------- genes ----------
@@ -157,11 +167,7 @@ genes.forEach((g, i) => {
       if (!CELL_TYPE_IDS.includes(k as never)) err(`${p}.expression.${k}`, 'unknown cell type')
     }
   }
-  const sources = arr(g, 'sources', p)
-  if (sources.length === 0) err(`${p}.sources`, 'needs at least one source URL')
-  sources.forEach((s, j) => {
-    if (typeof s !== 'string' || !/^https?:\/\/\S+$/.test(s)) err(`${p}.sources[${j}]`, `not a valid URL: ${JSON.stringify(s)}`)
-  })
+  checkSources(g, p)
 })
 
 // ---------- proteins ----------

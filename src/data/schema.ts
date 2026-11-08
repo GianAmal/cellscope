@@ -38,6 +38,8 @@ export interface Organelle {
   id: OrganelleId
   name: string
   blurb: string
+  /** At least one source URL (textbook page, NCBI Bookshelf, HPA, ...). */
+  sources: string[]
 }
 
 export interface CellType {
@@ -51,6 +53,8 @@ export interface CellType {
   organelleScale: Partial<Record<OrganelleId, number>>
   /** Gene IDs that characterize this cell type. Must exist in `genes`. */
   signatureGenes: string[]
+  /** At least one source URL backing the blurb and organelle list. */
+  sources: string[]
 }
 
 /**

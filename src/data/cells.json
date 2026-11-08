@@ -1,10 +1,343 @@
 {
   "meta": {
     "version": 1,
-    "expressionNote": "Values are 0-100 illustrative scores derived from Human Protein Atlas data, not raw experimental measurements."
+    "expressionNote": "Values are 0-100 illustrative scores derived from Human Protein Atlas single-cell RNA data, not raw experimental measurements."
   },
-  "organelles": [],
-  "cellTypes": [],
-  "genes": [],
-  "proteins": []
+  "organelles": [
+    {
+      "id": "nucleus",
+      "name": "Nucleus",
+      "blurb": "Stores the cell's DNA, which holds the instructions for making every protein the cell needs.",
+      "sources": [
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-3-the-nucleus-and-dna-replication",
+        "https://www.proteinatlas.org/humanproteome/subcellular/nucleoplasm"
+      ]
+    },
+    {
+      "id": "cytosol",
+      "name": "Cytosol",
+      "blurb": "The watery inside of the cell, where many proteins are made and glycolysis starts breaking down sugar for energy.",
+      "sources": [
+        "https://www.proteinatlas.org/humanproteome/subcellular/cytosol"
+      ]
+    },
+    {
+      "id": "plasma_membrane",
+      "name": "Plasma membrane",
+      "blurb": "The cell's outer boundary, which controls what goes in and out and carries receptors that pick up signals.",
+      "sources": [
+        "https://www.proteinatlas.org/humanproteome/subcellular/plasma+membrane"
+      ]
+    },
+    {
+      "id": "mitochondrion",
+      "name": "Mitochondrion",
+      "blurb": "Makes the ATP energy that powers the cell, using a chain of proteins called the electron transport chain.",
+      "sources": [
+        "https://www.proteinatlas.org/humanproteome/subcellular/mitochondria"
+      ]
+    },
+    {
+      "id": "er",
+      "name": "Endoplasmic reticulum (ER)",
+      "blurb": "A folded network of membranes where proteins for export or for membranes are made and folded, and lipids are built.",
+      "sources": [
+        "https://www.proteinatlas.org/humanproteome/subcellular/endoplasmic+reticulum"
+      ]
+    },
+    {
+      "id": "golgi",
+      "name": "Golgi apparatus",
+      "blurb": "Modifies, sorts and packages proteins arriving from the ER, then sends them on to where they are needed.",
+      "sources": [
+        "https://www.proteinatlas.org/humanproteome/subcellular/golgi+apparatus"
+      ]
+    }
+  ],
+  "cellTypes": [
+    {
+      "id": "neuron",
+      "name": "Neuron",
+      "blurb": "Sends electrical signals through the body. Its branched dendrites collect messages, and its axon passes them on to many other cells.",
+      "shape": "branched",
+      "organelles": [
+        "nucleus",
+        "cytosol",
+        "plasma_membrane",
+        "mitochondrion",
+        "er",
+        "golgi"
+      ],
+      "organelleScale": {},
+      "signatureGenes": [
+        "SCN2A",
+        "SNAP25"
+      ],
+      "sources": [
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+        "https://openstax.org/books/biology-2e/pages/35-1-neurons-and-glial-cells"
+      ]
+    },
+    {
+      "id": "muscle",
+      "name": "Skeletal muscle cell",
+      "blurb": "A long, cylindrical fiber with many nuclei that contracts to move the body. Oxidative fibers are packed with mitochondria to make lots of ATP.",
+      "shape": "elongated",
+      "organelles": [
+        "nucleus",
+        "cytosol",
+        "plasma_membrane",
+        "mitochondrion",
+        "er",
+        "golgi"
+      ],
+      "organelleScale": {
+        "mitochondrion": 1.4
+      },
+      "signatureGenes": [
+        "CKM",
+        "ACTA1"
+      ],
+      "sources": [
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/10-2-skeletal-muscle",
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/10-5-types-of-muscle-fibers",
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-3-the-nucleus-and-dna-replication",
+        "https://pubmed.ncbi.nlm.nih.gov/21467191/"
+      ]
+    },
+    {
+      "id": "hepatocyte",
+      "name": "Liver cell (hepatocyte)",
+      "blurb": "The liver's main cell. It processes nutrients, toxins and wastes from the blood and makes bile, with plenty of mitochondria to power the work.",
+      "shape": "round",
+      "organelles": [
+        "nucleus",
+        "cytosol",
+        "plasma_membrane",
+        "mitochondrion",
+        "er",
+        "golgi"
+      ],
+      "organelleScale": {
+        "mitochondrion": 1.4
+      },
+      "signatureGenes": [],
+      "sources": [
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder",
+        "https://pubmed.ncbi.nlm.nih.gov/28301072/",
+        "https://pubmed.ncbi.nlm.nih.gov/38214802/",
+        "https://pubmed.ncbi.nlm.nih.gov/24433144/"
+      ]
+    },
+    {
+      "id": "rbc",
+      "name": "Red blood cell",
+      "blurb": "Carries oxygen from the lungs to the tissues. It has no mitochondria, so it makes its energy without oxygen and doesn't use up the oxygen it carries.",
+      "shape": "biconcave",
+      "organelles": [
+        "cytosol",
+        "plasma_membrane"
+      ],
+      "organelleScale": {},
+      "signatureGenes": [],
+      "sources": [
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-3-erythrocytes",
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-3-the-nucleus-and-dna-replication",
+        "https://pubmed.ncbi.nlm.nih.gov/21423015/",
+        "https://pubmed.ncbi.nlm.nih.gov/29311991/"
+      ]
+    },
+    {
+      "id": "beta",
+      "name": "Pancreatic beta cell",
+      "blurb": "Senses high blood sugar and releases insulin, a hormone that helps body cells take in glucose and burn it for ATP.",
+      "shape": "round",
+      "organelles": [
+        "nucleus",
+        "cytosol",
+        "plasma_membrane",
+        "mitochondrion",
+        "er",
+        "golgi"
+      ],
+      "organelleScale": {},
+      "signatureGenes": [
+        "INS"
+      ],
+      "sources": [
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/17-9-the-endocrine-pancreas",
+        "https://pubmed.ncbi.nlm.nih.gov/33463547/",
+        "https://pubmed.ncbi.nlm.nih.gov/37152949/",
+        "https://pubmed.ncbi.nlm.nih.gov/33808310/"
+      ]
+    }
+  ],
+  "genes": [
+    {
+      "id": "CKM",
+      "symbol": "CKM",
+      "fullName": "creatine kinase, M-type",
+      "plainSummary": "Quickly recharges ATP, the cell's energy currency, using a backup store called creatine phosphate. Busiest in muscle during sudden bursts of effort.",
+      "proteinId": "ck_m",
+      "expression": {
+        "neuron": 5,
+        "muscle": 72,
+        "hepatocyte": 0,
+        "rbc": 7,
+        "beta": 8
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/P06732/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/1158",
+        "https://www.proteinatlas.org/ENSG00000104879-CKM/single+cell+type",
+        "https://pubmed.ncbi.nlm.nih.gov/8358791/"
+      ]
+    },
+    {
+      "id": "ACTA1",
+      "symbol": "ACTA1",
+      "fullName": "actin alpha 1, skeletal muscle",
+      "plainSummary": "Makes skeletal actin, a protein that links up into thin threads inside muscle fibers. Those threads are needed for muscles to contract.",
+      "proteinId": "actin_a1",
+      "expression": {
+        "neuron": 10,
+        "muscle": 76,
+        "hepatocyte": 0,
+        "rbc": 0,
+        "beta": 12
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/P68133/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/58",
+        "https://www.proteinatlas.org/ENSG00000143632-ACTA1/single+cell+type",
+        "https://medlineplus.gov/genetics/gene/acta1/"
+      ]
+    },
+    {
+      "id": "SCN2A",
+      "symbol": "SCN2A",
+      "fullName": "sodium voltage-gated channel alpha subunit 2",
+      "plainSummary": "Builds a sodium channel, a tiny gate in a nerve cell's outer membrane. When it opens, sodium rushes in and helps fire an electrical signal.",
+      "proteinId": "nav1_2",
+      "expression": {
+        "neuron": 71,
+        "muscle": 4,
+        "hepatocyte": 9,
+        "rbc": 0,
+        "beta": 27
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/Q99250/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/6326",
+        "https://www.proteinatlas.org/ENSG00000136531-SCN2A/single+cell+type",
+        "https://medlineplus.gov/genetics/gene/scn2a/"
+      ]
+    },
+    {
+      "id": "SNAP25",
+      "symbol": "SNAP25",
+      "fullName": "synaptosome associated protein 25",
+      "plainSummary": "Part of the machinery nerve cells use to release chemical messengers (neurotransmitters) at synapses, the junctions where nerve cells talk to each other.",
+      "proteinId": "snap25",
+      "expression": {
+        "neuron": 77,
+        "muscle": 8,
+        "hepatocyte": 6,
+        "rbc": 1,
+        "beta": 64
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/P60880/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/6616",
+        "https://www.proteinatlas.org/ENSG00000132639-SNAP25/single+cell+type"
+      ]
+    },
+    {
+      "id": "INS",
+      "symbol": "INS",
+      "fullName": "insulin",
+      "plainSummary": "Makes insulin, a hormone from pancreas beta cells. Insulin tells body cells to take sugar out of the blood, lowering blood sugar.",
+      "proteinId": "insulin",
+      "expression": {
+        "neuron": 0,
+        "muscle": 0,
+        "hepatocyte": 0,
+        "rbc": 0,
+        "beta": 100
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/P01308/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/3630",
+        "https://www.proteinatlas.org/ENSG00000254647-INS/single+cell+type",
+        "https://medlineplus.gov/genetics/gene/ins/"
+      ]
+    }
+  ],
+  "proteins": [
+    {
+      "id": "ck_m",
+      "name": "Creatine kinase M-type",
+      "geneId": "CKM",
+      "location": "cytosol",
+      "job": "Moves a phosphate between ATP and creatine (a small energy-storage molecule), letting the cell quickly rebuild ATP from its creatine phosphate reserve.",
+      "whatHappensIfBroken": "In mice bred without it, muscles stay just as strong but can't do quick bursts of intense activity.",
+      "visual": {
+        "primitive": "cluster",
+        "color": "#E69F00",
+        "count": 14
+      }
+    },
+    {
+      "id": "actin_a1",
+      "name": "Actin, alpha skeletal muscle",
+      "geneId": "ACTA1",
+      "location": "cytosol",
+      "job": "Links into long thin filaments inside the muscle cell's contraction units (sarcomeres). These filaments are needed for the muscle fiber to contract.",
+      "whatHappensIfBroken": "Faulty actin can disrupt the thin threads, so muscles can't contract properly. This causes muscle weakness and floppiness (low muscle tone), sometimes severe from birth.",
+      "visual": {
+        "primitive": "rod",
+        "color": "#D55E00",
+        "count": 16
+      }
+    },
+    {
+      "id": "nav1_2",
+      "name": "Sodium channel Nav1.2 (alpha subunit)",
+      "geneId": "SCN2A",
+      "location": "plasma_membrane",
+      "job": "Forms a voltage-sensitive sodium channel in the neuron's outer membrane. When the voltage changes it opens, letting sodium ions flow in so the neuron can send an electrical signal.",
+      "whatHappensIfBroken": "Changes in this gate can make brain signals misfire. Babies may have seizures (bursts of uncontrolled brain activity); it is also linked to autism and developmental delays.",
+      "visual": {
+        "primitive": "ring",
+        "color": "#0072B2",
+        "count": 10
+      }
+    },
+    {
+      "id": "snap25",
+      "name": "SNAP-25 (synaptosomal-associated protein 25)",
+      "geneId": "SNAP25",
+      "location": "plasma_membrane",
+      "job": "Held on the inside of the cell membrane by fatty tails, it is a SNARE protein that helps control the release of neurotransmitters.",
+      "whatHappensIfBroken": "Changes in it can cause a severe childhood epilepsy: seizures (bursts of uncontrolled brain activity) that resist medicine, plus delays in learning, walking and development.",
+      "visual": {
+        "primitive": "cluster",
+        "color": "#CC79A7",
+        "count": 12
+      }
+    },
+    {
+      "id": "insulin",
+      "name": "Insulin",
+      "geneId": "INS",
+      "location": "golgi",
+      "job": "Made as a longer precursor (proinsulin) that is processed and packed into storage granules, then released into the blood, where it signals cells to take up glucose.",
+      "whatHappensIfBroken": "Without working insulin, sugar builds up in the blood: diabetes. Some INS changes cause diabetes in babies under six months old; others cause diabetes in young people.",
+      "visual": {
+        "primitive": "sphere",
+        "color": "#009E73",
+        "count": 16
+      }
+    }
+  ]
 }

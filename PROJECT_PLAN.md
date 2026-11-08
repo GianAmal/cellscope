@@ -277,8 +277,8 @@ passes on an empty-but-valid data file.
 ---
 
 ### Phase 1 — Data (the real work)
-- [ ] Use **bio-curator** to add the 5 cell types with blurbs
-- [ ] Use **bio-curator** to add genes in 3 batches of ~5, with proteins
+- [x] Use **bio-curator** to add the 5 cell types with blurbs
+- [ ] Use **bio-curator** to add genes in 3 batches of ~5, with proteins (batch 1 of 3 done: CKM, ACTA1, SCN2A, SNAP25, INS)
 - [ ] Run `npm run validate:data` after each batch
 - [ ] Use **bio-factcheck** on the complete file
 - [ ] Fix every WRONG verdict; resolve or delete every UNVERIFIABLE entry
