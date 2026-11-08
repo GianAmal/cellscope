@@ -308,6 +308,9 @@ entry has at least one source URL. Commit.
 **Done when:** someone who has never seen the project can pick a cell, pick a
 gene, and correctly explain what that gene's protein does. Deploy it. Commit.
 
+- [x] Deployed: https://gianamal.github.io/cellscope/ (GitHub Pages, auto-deploys on push to `main`; data is validated in CI before each build)
+- [ ] Usability test with someone who has never seen the project
+
 > **Checkpoint:** if you run out of time or motivation, stop here. This is
 > already a real project worth showing.
 

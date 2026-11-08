@@ -10,6 +10,10 @@ Read PROJECT_PLAN.md for the full spec and current phase.
 - The app must work with 3D disabled.
 - Expression values are approximate and must be labeled as such in the UI.
 
+## Live site
+https://gianamal.github.io/cellscope/ — every push to `main` redeploys via
+.github/workflows/deploy.yml (runs validate:data, then build).
+
 ## Commands
 - `npm run dev` — dev server
 - `npm run build` — typecheck + production build
