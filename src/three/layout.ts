@@ -71,7 +71,7 @@ export function organelleLayout(shape: CellShape, id: OrganelleId): OrganelleLay
   }
 }
 
-function nucleusAt(shape: CellShape): [number, number, number] {
+export function nucleusAt(shape: CellShape): [number, number, number] {
   switch (shape) {
     case 'elongated':
       return [-0.95, 0.3, 0] // muscle fibres push their nuclei to the edge
@@ -82,7 +82,7 @@ function nucleusAt(shape: CellShape): [number, number, number] {
   }
 }
 
-function golgiAt(shape: CellShape): [number, number, number] {
+export function golgiAt(shape: CellShape): [number, number, number] {
   switch (shape) {
     case 'elongated':
       return [0.45, -0.2, 0.1]
@@ -93,7 +93,7 @@ function golgiAt(shape: CellShape): [number, number, number] {
   }
 }
 
-function mitochondria(shape: CellShape): Instance[] {
+export function mitochondria(shape: CellShape): Instance[] {
   switch (shape) {
     case 'elongated':
       // Spread along the fibre, in two rows.

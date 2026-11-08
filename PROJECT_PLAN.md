@@ -338,12 +338,14 @@ blurb. 60fps. Commit.
 ---
 
 ### Phase 4 — Wire data into 3D
-- [ ] **scene-builder**: selecting a gene spawns its protein mesh in the correct
+- [x] **scene-builder**: selecting a gene spawns its protein mesh in the correct
       organelle, animated in
-- [ ] **scene-builder**: protein count/size scales with expression level in the
+- [x] **scene-builder**: protein count/size scales with expression level in the
       currently selected cell type
-- [ ] **scene-builder**: switching cell type morphs the shell and re-places proteins
-- [ ] **ui-builder**: panel and 3D scene share one selection state (no drift)
+- [x] **scene-builder**: switching cell type re-places proteins and plays a
+      scale-and-settle transition (not a true vertex morph — the shapes are
+      different geometries; see docs/scene-design.md)
+- [x] **ui-builder**: panel and 3D scene share one selection state (no drift)
 
 **Done when:** picking `CKM` in muscle vs. in neuron visibly differs, and the
 difference matches the bar chart. Commit.

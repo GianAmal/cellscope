@@ -1,7 +1,7 @@
 // The 3D cell plus its organelle list. The list works on its own, so the page
 // is complete with 3D switched off (`?no3d=1`, or the toggle here).
 import { Suspense, lazy } from 'react'
-import { getCell } from '../data'
+import { cellHasOrganelle, getCell, getGene, proteinFor } from '../data'
 import { useSelection } from '../state/selection'
 import { CellPartList } from './CellPartList'
 import { OrganelleList } from './OrganelleList'
@@ -13,6 +13,25 @@ export function CellView() {
   const { sel, dispatch } = useSelection()
   const cell = getCell(sel.cell)
   if (!cell) return null
+
+  // The scene gets plain values, never the data module: the same selection
+  // drives this panel, the gene detail and the 3D, so they cannot drift.
+  const gene = sel.gene ? getGene(sel.gene) : undefined
+  const protein = gene ? proteinFor(gene) : undefined
+  const sceneProtein =
+    gene && protein
+      ? {
+          id: protein.id,
+          geneSymbol: gene.symbol,
+          name: protein.name,
+          location: protein.location,
+          primitive: protein.visual.primitive,
+          color: protein.visual.color,
+          baseCount: protein.visual.count,
+          expression: gene.expression[cell.id],
+          organellePresent: cellHasOrganelle(cell.id, protein.location),
+        }
+      : null
 
   return (
     <section aria-labelledby="cell-view-title" className="space-y-3">
@@ -41,6 +60,7 @@ export function CellView() {
           <CellScene
             cell={cell}
             focus={sel.organelle ?? sel.cellPart}
+            protein={sceneProtein}
             onSelectOrganelle={(organelle) => dispatch({ type: 'setOrganelle', organelle })}
             onSelectPart={(part) => dispatch({ type: 'setPart', part })}
           />

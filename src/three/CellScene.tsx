@@ -5,22 +5,42 @@
 import { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
-import type { CellType, OrganelleId } from '../data/schema'
+import type { CellType, OrganelleId, ProteinPrimitive } from '../data/schema'
 import { getOrganelle, getPart, partsForShape } from '../data'
 import { CellShell } from './CellShell'
+import { CellTransition } from './CellTransition'
+import { Protein3D } from './Protein3D'
+import { copiesFor } from './proteinLayout'
 import { Organelle3D } from './Organelle3D'
 import { organelleLayout } from './layout'
 import { SHELL_RADIUS, SHELL_VIEW } from './shapes'
+
+/** Everything the scene needs to draw the selected gene's protein. */
+export interface SceneProtein {
+  id: string
+  geneSymbol: string
+  name: string
+  location: OrganelleId
+  primitive: ProteinPrimitive
+  color: string
+  baseCount: number
+  /** This gene's 0-100 score in the cell on screen. */
+  expression: number
+  /** False when this cell type has no such organelle. */
+  organellePresent: boolean
+}
 
 export interface CellSceneProps {
   cell: CellType
   /** Selected organelle id or cell-part id. */
   focus: string | null
+  /** The selected gene's protein, or null when no gene is selected. */
+  protein: SceneProtein | null
   onSelectOrganelle: (id: OrganelleId | null) => void
   onSelectPart: (id: string | null) => void
 }
 
-export function CellScene({ cell, focus, onSelectOrganelle, onSelectPart }: CellSceneProps) {
+export function CellScene({ cell, focus, protein, onSelectOrganelle, onSelectPart }: CellSceneProps) {
   const [hovered, setHovered] = useState<string | null>(null)
   const radius = SHELL_RADIUS[cell.shape]
   const view = SHELL_VIEW[cell.shape]
@@ -37,6 +57,8 @@ export function CellScene({ cell, focus, onSelectOrganelle, onSelectPart }: Cell
     onSelectOrganelle(null)
     onSelectPart(null)
   }
+
+  const copies = protein ? copiesFor(protein.baseCount, protein.expression) : 0
 
   const drawn = cell.organelles
     .map((id) => ({ id, layout: organelleLayout(cell.shape, id) }))
@@ -56,6 +78,7 @@ export function CellScene({ cell, focus, onSelectOrganelle, onSelectPart }: Cell
         <directionalLight position={[-5, -2, -4]} intensity={0.5} color="#9ec5fe" />
 
         <Suspense fallback={null}>
+          <CellTransition trigger={cell.id}>
           <CellShell
             shape={cell.shape}
             hasCytosol={cell.organelles.includes('cytosol')}
@@ -79,6 +102,22 @@ export function CellScene({ cell, focus, onSelectOrganelle, onSelectPart }: Cell
               onSelect={onSelectOrganelle}
             />
           ))}
+
+          {protein && copies > 0 && (
+            <Protein3D
+              // Remount on any change so the copies animate in again.
+              key={`${protein.id}-${cell.id}-${protein.expression}`}
+              proteinId={protein.id}
+              shape={cell.shape}
+              location={protein.location}
+              primitive={protein.primitive}
+              color={protein.color}
+              baseCount={protein.baseCount}
+              expression={protein.expression}
+              dimmed={focus !== null && focus !== protein.location}
+            />
+          )}
+          </CellTransition>
         </Suspense>
 
         <OrbitControls
@@ -96,6 +135,30 @@ export function CellScene({ cell, focus, onSelectOrganelle, onSelectPart }: Cell
         <p className="pointer-events-none absolute left-3 top-3 rounded-md bg-white/95 px-2 py-1 text-sm font-semibold text-slate-900 shadow">
           {labelName}
           {focus === labelId && <span className="ml-1 font-normal text-slate-600">· selected</span>}
+        </p>
+      )}
+      {protein && (
+        <p className="pointer-events-none absolute bottom-8 left-3 right-3 rounded-md bg-slate-950/80 px-2 py-1.5 text-xs text-slate-100 sm:bottom-2 sm:right-48">
+          {copies > 0 ? (
+            <>
+              <span className="font-semibold">{protein.geneSymbol}</span> → {protein.name} in the{' '}
+              {getOrganelle(protein.location)?.name.toLowerCase() ?? protein.location}.{' '}
+              <span className="text-slate-300">
+                {copies} {copies === 1 ? 'copy' : 'copies'} drawn for a score of {protein.expression}/100 — an
+                illustration, not a real count.
+              </span>
+            </>
+          ) : protein.organellePresent ? (
+            <>
+              <span className="font-semibold">{protein.geneSymbol}</span> scores 0 in this cell type, so none of its
+              protein is drawn.
+            </>
+          ) : (
+            <>
+              <span className="font-semibold">{protein.geneSymbol}</span>'s protein works in the{' '}
+              {getOrganelle(protein.location)?.name.toLowerCase() ?? protein.location}, which this cell doesn't have.
+            </>
+          )}
         </p>
       )}
       <p className="pointer-events-none absolute bottom-2 right-3 text-xs text-slate-400">

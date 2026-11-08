@@ -50,6 +50,37 @@ one is behind that pixel, and otherwise lands on the body's far wall and
 selects the soma. So clicking an organelle picks the organelle, and clicking
 a clear patch of the body picks the body — which is what a reader expects.
 
+## Proteins (Phase 4)
+
+Selecting a gene draws its protein inside the organelle it works in.
+`CellView` reads the selection, looks up the gene and its protein, and hands
+`CellScene` plain values — organelle, colour, primitive, base count and this
+gene's score **in the cell currently on screen**. No scene file names a gene,
+a protein or an expression value.
+
+- **How many.** `copies = max(1, round(visual.count × score / 100))`, and 0
+  when the score is 0. The score is already log-scaled (see the curation
+  README), so a straight proportion of it is the right relationship. A gene
+  present at all gets at least one copy, so "a little" never looks like
+  "none". Size also rises mildly with the score, so the difference reads at a
+  glance.
+- **Where.** `proteinLayout.ts` scatters them: on the mitochondria themselves,
+  around the ER ring, by the Golgi stack, inside the nucleus, through the
+  cytosol, or over the outer surface for membrane proteins. Positions come
+  from a seeded PRNG keyed on the protein id, so they are stable across
+  re-renders and differ between proteins.
+- **Arriving.** Copies scale up with a short staggered ease, skipped entirely
+  under `prefers-reduced-motion`.
+- **Nothing to draw.** The caption says which case it is: a score of 0 here,
+  or an organelle this cell type doesn't have (a mitochondrial protein in a
+  mature red blood cell). Silence would read as a bug.
+- **Honesty.** The caption always says the copies are an illustration, not a
+  real count, next to the score it was derived from.
+
+Switching cell type plays a short scale-and-settle (`CellTransition`). It is
+**not** a vertex morph between shapes — the geometries are different meshes —
+and the code says so rather than implying the cell deforms.
+
 ## The cutaway
 
 The shell is drawn **back-faces-only** (`side: THREE.BackSide`). The near wall
