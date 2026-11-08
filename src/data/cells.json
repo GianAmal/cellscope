@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "version": 1,
+    "expressionNote": "Values are 0-100 illustrative scores derived from Human Protein Atlas data, not raw experimental measurements."
+  },
+  "organelles": [],
+  "cellTypes": [],
+  "genes": [],
+  "proteins": []
+}
