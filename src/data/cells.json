@@ -96,7 +96,8 @@
       },
       "signatureGenes": [
         "CKM",
-        "ACTA1"
+        "ACTA1",
+        "MB"
       ],
       "sources": [
         "https://openstax.org/books/anatomy-and-physiology-2e/pages/10-2-skeletal-muscle",
@@ -121,7 +122,10 @@
       "organelleScale": {
         "mitochondrion": 1.4
       },
-      "signatureGenes": [],
+      "signatureGenes": [
+        "ALB",
+        "CYP3A4"
+      ],
       "sources": [
         "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder",
         "https://pubmed.ncbi.nlm.nih.gov/28301072/",
@@ -139,7 +143,10 @@
         "plasma_membrane"
       ],
       "organelleScale": {},
-      "signatureGenes": [],
+      "signatureGenes": [
+        "HBB",
+        "SLC2A1"
+      ],
       "sources": [
         "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-3-erythrocytes",
         "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-3-the-nucleus-and-dna-replication",
@@ -162,7 +169,8 @@
       ],
       "organelleScale": {},
       "signatureGenes": [
-        "INS"
+        "INS",
+        "GCK"
       ],
       "sources": [
         "https://openstax.org/books/anatomy-and-physiology-2e/pages/17-9-the-endocrine-pancreas",
@@ -271,6 +279,186 @@
         "https://www.proteinatlas.org/ENSG00000254647-INS/single+cell+type",
         "https://medlineplus.gov/genetics/gene/ins/"
       ]
+    },
+    {
+      "id": "GCK",
+      "symbol": "GCK",
+      "fullName": "glucokinase",
+      "plainSummary": "Makes glucokinase, an enzyme that adds a phosphate tag to glucose so cells can use or store it. Beta cells use it to sense sugar.",
+      "proteinId": "glucokinase",
+      "expression": {
+        "neuron": 22,
+        "muscle": 1,
+        "hepatocyte": 5,
+        "rbc": 0,
+        "beta": 44
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/P35557/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/2645",
+        "https://www.proteinatlas.org/ENSG00000106633-GCK/single+cell+type",
+        "https://medlineplus.gov/genetics/gene/gck/"
+      ]
+    },
+    {
+      "id": "ALB",
+      "symbol": "ALB",
+      "fullName": "albumin",
+      "plainSummary": "Makes albumin, a protein that liver cells release into the blood. There it carries fats, hormones and drugs and helps keep water inside blood vessels.",
+      "proteinId": "albumin",
+      "expression": {
+        "neuron": 9,
+        "muscle": 0,
+        "hepatocyte": 100,
+        "rbc": 0,
+        "beta": 8
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/P02768/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/213",
+        "https://www.proteinatlas.org/ENSG00000163631-ALB/single+cell+type",
+        "https://pubmed.ncbi.nlm.nih.gov/31057599/"
+      ]
+    },
+    {
+      "id": "CYP3A4",
+      "symbol": "CYP3A4",
+      "fullName": "cytochrome P450 family 3 subfamily A member 4",
+      "plainSummary": "Makes an enzyme, found mostly in liver and gut cells, that processes most of the medicines people take, plus some hormones and fats.",
+      "proteinId": "cyp3a4",
+      "expression": {
+        "neuron": 6,
+        "muscle": 17,
+        "hepatocyte": 90,
+        "rbc": 0,
+        "beta": 2
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/P08684/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/1576",
+        "https://www.proteinatlas.org/ENSG00000160868-CYP3A4/single+cell+type",
+        "https://pubmed.ncbi.nlm.nih.gov/29461981/"
+      ]
+    },
+    {
+      "id": "HBB",
+      "symbol": "HBB",
+      "fullName": "hemoglobin subunit beta",
+      "plainSummary": "Makes beta-globin, one of the building blocks of hemoglobin. Hemoglobin fills red blood cells and carries oxygen from the lungs to the body.",
+      "proteinId": "beta_globin",
+      "expression": {
+        "neuron": 4,
+        "muscle": 7,
+        "hepatocyte": 24,
+        "rbc": 100,
+        "beta": 2
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/P68871/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/3043",
+        "https://www.proteinatlas.org/ENSG00000244734-HBB/single+cell+type",
+        "https://medlineplus.gov/genetics/gene/hbb/"
+      ]
+    },
+    {
+      "id": "SLC2A1",
+      "symbol": "SLC2A1",
+      "fullName": "solute carrier family 2 member 1",
+      "plainSummary": "Makes GLUT1, a doorway in the cell's outer membrane that lets glucose (sugar) in. It is the main way glucose reaches the brain.",
+      "proteinId": "glut1",
+      "expression": {
+        "neuron": 19,
+        "muscle": 1,
+        "hepatocyte": 13,
+        "rbc": 56,
+        "beta": 28
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/P11166/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/6513",
+        "https://www.proteinatlas.org/ENSG00000117394-SLC2A1/single+cell+type",
+        "https://medlineplus.gov/genetics/gene/slc2a1/"
+      ]
+    },
+    {
+      "id": "ATP5F1A",
+      "symbol": "ATP5F1A",
+      "fullName": "ATP synthase F1 subunit alpha",
+      "plainSummary": "Builds one part of ATP synthase, the machine in mitochondria that makes ATP, the cell's energy currency, using a flow of protons (hydrogen ions).",
+      "proteinId": "atp_synthase_alpha",
+      "expression": {
+        "neuron": 45,
+        "muscle": 52,
+        "hepatocyte": 60,
+        "rbc": 0,
+        "beta": 55
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/P25705/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/498",
+        "https://www.proteinatlas.org/ENSG00000152234-ATP5F1A/single+cell+type",
+        "https://pubmed.ncbi.nlm.nih.gov/23599390/",
+        "https://pubmed.ncbi.nlm.nih.gov/34483339/"
+      ]
+    },
+    {
+      "id": "PPARGC1A",
+      "symbol": "PPARGC1A",
+      "fullName": "PPARG coactivator 1 alpha",
+      "plainSummary": "Helps switch on genes for making new mitochondria and controlling energy use. Especially active in muscle and liver.",
+      "proteinId": "pgc1a",
+      "expression": {
+        "neuron": 48,
+        "muscle": 68,
+        "hepatocyte": 63,
+        "rbc": 0,
+        "beta": 27
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/Q9UBK2/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/10891",
+        "https://www.proteinatlas.org/ENSG00000109819-PPARGC1A/single+cell+type",
+        "https://pubmed.ncbi.nlm.nih.gov/15454086/"
+      ]
+    },
+    {
+      "id": "MB",
+      "symbol": "MB",
+      "fullName": "myoglobin",
+      "plainSummary": "Makes myoglobin, a protein in heart and skeletal muscle cells that stores oxygen and helps it spread through the cell.",
+      "proteinId": "myoglobin",
+      "expression": {
+        "neuron": 1,
+        "muscle": 70,
+        "hepatocyte": 6,
+        "rbc": 0,
+        "beta": 11
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/P02144/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/4151",
+        "https://www.proteinatlas.org/ENSG00000198125-MB/single+cell+type",
+        "https://pubmed.ncbi.nlm.nih.gov/30918256/"
+      ]
+    },
+    {
+      "id": "GAPDH",
+      "symbol": "GAPDH",
+      "fullName": "glyceraldehyde-3-phosphate dehydrogenase",
+      "plainSummary": "A housekeeping gene: it is switched on in nearly every cell type. Its enzyme does one step of glycolysis, breaking down sugar for energy.",
+      "proteinId": "gapdh",
+      "expression": {
+        "neuron": 61,
+        "muscle": 46,
+        "hepatocyte": 82,
+        "rbc": 75,
+        "beta": 83
+      },
+      "sources": [
+        "https://www.uniprot.org/uniprotkb/P04406/entry",
+        "https://www.ncbi.nlm.nih.gov/gene/2597",
+        "https://www.proteinatlas.org/ENSG00000111640-GAPDH/single+cell+type"
+      ]
     }
   ],
   "proteins": [
@@ -337,6 +525,123 @@
         "primitive": "sphere",
         "color": "#009E73",
         "count": 16
+      }
+    },
+    {
+      "id": "glucokinase",
+      "name": "Glucokinase (hexokinase-4)",
+      "geneId": "GCK",
+      "location": "cytosol",
+      "job": "Adds a phosphate to glucose, the first step in burning it for energy or storing it as glycogen. It only works fast when glucose is plentiful, so it acts as a glucose sensor.",
+      "whatHappensIfBroken": "Weaker glucokinase makes beta cells slow to notice rising sugar, so blood sugar stays mildly high from birth (a form of diabetes called GCK-MODY), usually without symptoms.",
+      "visual": {
+        "primitive": "cluster",
+        "color": "#F0E442",
+        "count": 12
+      }
+    },
+    {
+      "id": "albumin",
+      "name": "Albumin",
+      "geneId": "ALB",
+      "location": "golgi",
+      "job": "Made and packaged for release by liver cells, then floats in blood plasma, holding onto water, salts, fatty acids, hormones and drugs. Its main job is keeping water in the blood.",
+      "whatHappensIfBroken": "People born with almost no albumin (very rare) usually have mild swelling, low blood pressure, tiredness and high blood fats. It is more dangerous for unborn babies and infants.",
+      "visual": {
+        "primitive": "sphere",
+        "color": "#56B4E9",
+        "count": 16
+      }
+    },
+    {
+      "id": "cyp3a4",
+      "name": "Cytochrome P450 3A4",
+      "geneId": "CYP3A4",
+      "location": "er",
+      "job": "Anchored in the ER membrane, it uses oxygen to chemically change (oxidize) many medicines, steroid hormones and other molecules, often making them less active.",
+      "whatHappensIfBroken": "One rare change makes it overactive: it destroys vitamin D too fast. Children then develop rickets (soft, weak bones) early and respond poorly to vitamin D treatment.",
+      "visual": {
+        "primitive": "cluster",
+        "color": "#CC79A7",
+        "count": 12
+      }
+    },
+    {
+      "id": "beta_globin",
+      "name": "Hemoglobin subunit beta (beta-globin)",
+      "geneId": "HBB",
+      "location": "cytosol",
+      "job": "Two beta-globin and two alpha-globin chains join to form hemoglobin. Each chain holds an iron-containing heme that grabs oxygen in the lungs and delivers it to tissues.",
+      "whatHappensIfBroken": "One tiny change causes sickle cell disease: red blood cells bend into sickles, die early and block small vessels. Other changes cause beta thalassemia, a shortage of hemoglobin.",
+      "visual": {
+        "primitive": "sphere",
+        "color": "#D55E00",
+        "count": 16
+      }
+    },
+    {
+      "id": "glut1",
+      "name": "Glucose transporter GLUT1",
+      "geneId": "SLC2A1",
+      "location": "plasma_membrane",
+      "job": "Spans the cell's outer membrane and lets glucose pass through without spending energy, giving cells their basic sugar supply. At the blood-brain barrier it carries glucose into the brain.",
+      "whatHappensIfBroken": "Too little working GLUT1 starves the brain of its main fuel, glucose. This can cause seizures (bursts of uncontrolled brain activity), movement problems and developmental delay.",
+      "visual": {
+        "primitive": "ring",
+        "color": "#009E73",
+        "count": 10
+      }
+    },
+    {
+      "id": "atp_synthase_alpha",
+      "name": "ATP synthase subunit alpha, mitochondrial",
+      "geneId": "ATP5F1A",
+      "location": "mitochondrion",
+      "job": "Forms part of the core of ATP synthase (Complex V) on the inner mitochondrial membrane, which uses the proton gradient built by the electron transport chain to make ATP from ADP.",
+      "whatHappensIfBroken": "Changes in it can starve cells of energy from birth. Babies may have poor growth, serious brain problems (encephalopathy) and lactic acid buildup; some die within weeks.",
+      "visual": {
+        "primitive": "ring",
+        "color": "#F0E442",
+        "count": 14
+      }
+    },
+    {
+      "id": "pgc1a",
+      "name": "PGC-1alpha (PPARG coactivator 1-alpha)",
+      "geneId": "PPARGC1A",
+      "location": "nucleus",
+      "job": "A coactivator: in the nucleus it partners with nuclear receptors and other gene-control proteins to boost their activity, switching on genes for mitochondria and, in the liver, for making new glucose.",
+      "whatHappensIfBroken": "In mice bred without it, mitochondria work less well and the mice are oddly hyperactive, with damage in a brain area that controls movement.",
+      "visual": {
+        "primitive": "sphere",
+        "color": "#56B4E9",
+        "count": 8
+      }
+    },
+    {
+      "id": "myoglobin",
+      "name": "Myoglobin",
+      "geneId": "MB",
+      "location": "cytosol",
+      "job": "Holds oxygen on an iron-containing heme group inside the muscle cell's cytoplasm (sarcoplasm), storing it and helping it spread to where it is used.",
+      "whatHappensIfBroken": "One recurring change in myoglobin causes a muscle disease starting in adulthood: weakness near the body's center slowly spreads outward and can later affect breathing and the heart.",
+      "visual": {
+        "primitive": "sphere",
+        "color": "#D55E00",
+        "count": 16
+      }
+    },
+    {
+      "id": "gapdh",
+      "name": "Glyceraldehyde-3-phosphate dehydrogenase (GAPDH)",
+      "geneId": "GAPDH",
+      "location": "cytosol",
+      "job": "Carries out one step of glycolysis in the cytosol: it converts glyceraldehyde 3-phosphate, a three-carbon piece of broken-down glucose, into 1,3-bisphosphoglycerate.",
+      "whatHappensIfBroken": "TODO: verify",
+      "visual": {
+        "primitive": "cluster",
+        "color": "#0072B2",
+        "count": 12
       }
     }
   ]

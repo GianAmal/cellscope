@@ -194,6 +194,23 @@ proteins.forEach((pr, i) => {
   }
 })
 
+// ---------- expression vs. organelles ----------
+// A protein can't be present in a cell type that lacks its organelle
+// (e.g. mature red blood cells have no mitochondria), whatever the RNA data says.
+{
+  const cellOrganelles = new Map(cellTypes.map((c) => [c.id, new Set(Array.isArray(c.organelles) ? c.organelles : [])]))
+  genes.forEach((g, i) => {
+    const prot = proteinById.get(g.proteinId)
+    if (!prot || !isObj(g.expression)) return
+    for (const [ct, orgs] of cellOrganelles) {
+      const v = g.expression[ct as string]
+      if (typeof v === 'number' && v > 0 && !orgs.has(prot.location)) {
+        err(`genes[${i}].expression.${ct}`, `is ${v}, but protein "${prot.id}" lives in "${prot.location}", which cell type "${ct}" doesn't have (must be 0)`)
+      }
+    }
+  })
+}
+
 // ---------- report ----------
 const summary = `${organelles.length} organelles, ${cellTypes.length} cell types, ${genes.length} genes, ${proteins.length} proteins`
 for (const w of warnings) console.warn(`⚠ ${w}`)
