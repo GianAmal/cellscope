@@ -30,6 +30,8 @@ export function CellView() {
           baseCount: protein.visual.count,
           expression: gene.expression[cell.id],
           organellePresent: cellHasOrganelle(cell.id, protein.location),
+          knockedOut: sel.knockout,
+          effect: protein.knockout.effect,
         }
       : null
 

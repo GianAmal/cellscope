@@ -57,6 +57,12 @@ export function OrganelleList({ cell }: { cell: CellType }) {
             <p className="font-semibold">{chosen.name}</p>
             <p className="mt-1 text-sm text-slate-700">{chosen.blurb}</p>
             <ExtraNote cell={cell} id={chosen.id as OrganelleId} />
+            {sel.show3d && (
+              <p className="mt-2 text-sm text-slate-600">
+                <span aria-hidden="true">✦ </span>When a gene is selected, the moving specks here stand for{' '}
+                {chosen.activity.label.toLowerCase()}.
+              </p>
+            )}
             <button
               type="button"
               onClick={() => dispatch({ type: 'setOrganelle', organelle: null })}

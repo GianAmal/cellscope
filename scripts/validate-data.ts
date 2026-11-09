@@ -7,9 +7,13 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import {
   CELL_SHAPES,
+  ACTIVITY_LABEL_MAX_WORDS,
   CELL_PART_MAX_WORDS,
+  CONFIDENCE_LEVELS,
   CELL_TYPE_IDS,
   GLOSSARY_MAX_WORDS,
+  KNOCKOUT_CLAIM_MAX_WORDS,
+  KNOCKOUT_EFFECTS,
   ORGANELLE_IDS,
   PLAIN_SUMMARY_MAX_WORDS,
   PROTEIN_PRIMITIVES,
@@ -154,6 +158,11 @@ organelles.forEach((o, i) => {
   str(o, 'name', p)
   str(o, 'blurb', p)
   checkSources(o, p)
+  if (!isObj(o.activity)) err(`${p}.activity`, 'must be an object')
+  else {
+    str(o.activity, 'label', `${p}.activity`, ACTIVITY_LABEL_MAX_WORDS)
+    checkSources(o.activity, `${p}.activity`)
+  }
 })
 
 // ---------- cellTypes ----------
@@ -223,6 +232,13 @@ proteins.forEach((pr, i) => {
   if (loc && !definedOrganelles.has(loc)) err(`${p}.location`, `organelle "${loc}" is not defined in organelles[]`)
   str(pr, 'job', p)
   str(pr, 'whatHappensIfBroken', p, WHAT_HAPPENS_IF_BROKEN_MAX_WORDS)
+  if (!isObj(pr.knockout)) err(`${p}.knockout`, 'must be an object')
+  else {
+    oneOf(pr.knockout, 'effect', KNOCKOUT_EFFECTS, `${p}.knockout`)
+    oneOf(pr.knockout, 'confidence', CONFIDENCE_LEVELS, `${p}.knockout`)
+    str(pr.knockout, 'claim', `${p}.knockout`, KNOCKOUT_CLAIM_MAX_WORDS)
+    checkSources(pr.knockout, `${p}.knockout`)
+  }
   if (!isObj(pr.visual)) err(`${p}.visual`, 'must be an object')
   else {
     oneOf(pr.visual, 'primitive', PROTEIN_PRIMITIVES, `${p}.visual`)

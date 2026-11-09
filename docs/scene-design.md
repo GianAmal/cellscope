@@ -81,6 +81,35 @@ Switching cell type plays a short scale-and-settle (`CellTransition`). It is
 **not** a vertex morph between shapes — the geometries are different meshes —
 and the code says so rather than implying the cell deforms.
 
+## Knockouts (Phase 5)
+
+Knocking a gene out fades its protein out of the cell and changes what the
+organelle is doing. The second half is the part that can be wrong, so it is
+driven entirely by data rather than by the scene:
+
+- `organelles[].activity.label` says what the drifting particles represent —
+  one process per organelle, sourced.
+- `proteins[].knockout.effect` says what losing *that one protein* does to
+  *that* process: `stops`, `reduces` or `unchanged`, with a sourced claim and
+  a confidence level.
+
+`unchanged` is a first-class answer and the common one. Most cells have other
+isoforms or parallel routes, so losing one protein rarely halts an organelle.
+A scene that always stopped the animation would teach something false, so
+`ActivityFlow` reads the effect and keeps running when the sources say the job
+carries on. The panel says the same thing in words.
+
+`knockout.effect` is one value per protein, applied to whichever cell type is
+on screen. It cannot say "stops in a red blood cell, barely matters in a
+neuron". That is acceptable for the current 14 genes but is a real ceiling —
+see docs/curation/factcheck-phase5.md.
+
+The protein itself always fades out — that part is just "this cell no longer
+makes it", which is true by construction.
+
+Knockout is per selected gene and clears whenever the gene changes, so it can
+never silently carry over to a gene the reader did not knock out.
+
 ## The cutaway
 
 The shell is drawn **back-faces-only** (`side: THREE.BackSide`). The near wall

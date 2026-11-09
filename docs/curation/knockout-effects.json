@@ -1,0 +1,195 @@
+{
+  "organelleActivity": [
+    {
+      "id": "nucleus",
+      "label": "RNA copies of genes leaving the nucleus for the cytoplasm",
+      "sources": [
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-4-protein-synthesis"
+      ]
+    },
+    {
+      "id": "cytosol",
+      "label": "Glucose being broken down step by step in glycolysis",
+      "sources": [
+        "https://openstax.org/books/biology-2e/pages/7-2-glycolysis"
+      ]
+    },
+    {
+      "id": "plasma_membrane",
+      "label": "Glucose molecules crossing into the cell through a transporter protein",
+      "sources": [
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-1-the-cell-membrane",
+        "https://rest.uniprot.org/uniprotkb/P11166.txt"
+      ]
+    },
+    {
+      "id": "mitochondrion",
+      "label": "ATP being made by ATP synthase from the proton gradient",
+      "sources": [
+        "https://openstax.org/books/biology-2e/pages/7-4-oxidative-phosphorylation",
+        "https://rest.uniprot.org/uniprotkb/P25705.txt"
+      ]
+    },
+    {
+      "id": "er",
+      "label": "Newly made proteins being built and sent on to the Golgi",
+      "sources": [
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-2-the-cytoplasm-and-cellular-organelles"
+      ]
+    },
+    {
+      "id": "golgi",
+      "label": "Proteins being sorted, packaged into vesicles and shipped out",
+      "sources": [
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-2-the-cytoplasm-and-cellular-organelles"
+      ]
+    }
+  ],
+  "knockouts": [
+    {
+      "proteinId": "ck_m",
+      "effect": "unchanged",
+      "claim": "Glycolysis keeps going — in creatine-kinase-deficient mouse muscle it actually speeds up and carries more of the energy flow — but quick ATP bursts are lost.",
+      "confidence": "medium",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/14977167/",
+        "https://rest.uniprot.org/uniprotkb/P06732.txt"
+      ]
+    },
+    {
+      "proteinId": "actin_a1",
+      "effect": "unchanged",
+      "claim": "Glycolysis in the cytosol carries on as normal. What breaks is the muscle cell's contraction machinery, because the thin filaments of the sarcomere cannot form properly.",
+      "confidence": "medium",
+      "sources": [
+        "https://rest.uniprot.org/uniprotkb/P68133.txt",
+        "https://openstax.org/books/biology-2e/pages/7-2-glycolysis"
+      ]
+    },
+    {
+      "proteinId": "nav1_2",
+      "effect": "unchanged",
+      "claim": "Glucose keeps crossing the membrane normally, because GLUT transporters do that job. What stops is the sodium rush that lets the neuron fire an electrical signal.",
+      "confidence": "high",
+      "sources": [
+        "https://rest.uniprot.org/uniprotkb/Q99250.txt",
+        "https://rest.uniprot.org/uniprotkb/P11166.txt",
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-1-the-cell-membrane"
+      ]
+    },
+    {
+      "proteinId": "snap25",
+      "effect": "unchanged",
+      "claim": "Glucose still crosses the membrane, since that needs transporters, not SNAREs. What fails is fusing neurotransmitter-filled vesicles with the membrane, so the neuron cannot release its message.",
+      "confidence": "medium",
+      "sources": [
+        "https://rest.uniprot.org/uniprotkb/P60880.txt",
+        "https://rest.uniprot.org/uniprotkb/P11166.txt"
+      ]
+    },
+    {
+      "proteinId": "insulin",
+      "effect": "unchanged",
+      "claim": "The Golgi keeps sorting and packaging the beta cell's other proteins. What is missing is insulin itself, so no insulin-filled granules are made or released.",
+      "confidence": "medium",
+      "sources": [
+        "https://rest.uniprot.org/uniprotkb/P01308.txt",
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-2-the-cytoplasm-and-cellular-organelles"
+      ]
+    },
+    {
+      "proteinId": "glucokinase",
+      "effect": "reduces",
+      "claim": "In a beta or liver cell, glucose gets its first phosphate tag much more slowly, so glycolysis starts sluggishly and the cell senses sugar poorly.",
+      "confidence": "high",
+      "sources": [
+        "https://rest.uniprot.org/uniprotkb/P35557.txt",
+        "https://openstax.org/books/biology-2e/pages/7-2-glycolysis"
+      ]
+    },
+    {
+      "proteinId": "albumin",
+      "effect": "unchanged",
+      "claim": "The liver cell's Golgi keeps packaging and shipping its other proteins. Albumin simply isn't there to pack, so none leaves the cell.",
+      "confidence": "medium",
+      "sources": [
+        "https://rest.uniprot.org/uniprotkb/P02768.txt",
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-2-the-cytoplasm-and-cellular-organelles"
+      ]
+    },
+    {
+      "proteinId": "cyp3a4",
+      "effect": "unchanged",
+      "claim": "The ER keeps building and sending on proteins as usual. What the cell loses is the ER's ability to chemically alter many drugs and vitamin D.",
+      "confidence": "high",
+      "sources": [
+        "https://rest.uniprot.org/uniprotkb/P08684.txt",
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-2-the-cytoplasm-and-cellular-organelles"
+      ]
+    },
+    {
+      "proteinId": "beta_globin",
+      "effect": "unchanged",
+      "claim": "Glycolysis still runs — it is the red blood cell's only ATP source. What the cell loses is working hemoglobin, so it cannot carry oxygen.",
+      "confidence": "high",
+      "sources": [
+        "https://rest.uniprot.org/uniprotkb/P68871.txt",
+        "https://pubmed.ncbi.nlm.nih.gov/38916993/"
+      ]
+    },
+    {
+      "proteinId": "glut1",
+      "effect": "stops",
+      "claim": "In a red blood cell GLUT1 is the only glucose door, so glucose essentially stops entering; other cells use GLUT2, GLUT3 or GLUT4 instead.",
+      "confidence": "medium",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/30974390/",
+        "https://pubmed.ncbi.nlm.nih.gov/38916993/",
+        "https://rest.uniprot.org/uniprotkb/P11166.txt",
+        "https://openstax.org/books/anatomy-and-physiology-2e/pages/3-1-the-cell-membrane"
+      ]
+    },
+    {
+      "proteinId": "atp_synthase_alpha",
+      "effect": "reduces",
+      "claim": "ATP synthase cannot assemble properly, so the mitochondrion makes much less ATP. The cell leans on glycolysis instead, and lactic acid builds up.",
+      "confidence": "high",
+      "sources": [
+        "https://rest.uniprot.org/uniprotkb/P25705.txt",
+        "https://pubmed.ncbi.nlm.nih.gov/23599390/",
+        "https://pubmed.ncbi.nlm.nih.gov/34483339/"
+      ]
+    },
+    {
+      "proteinId": "pgc1a",
+      "effect": "unchanged",
+      "claim": "The nucleus keeps making RNA copies of genes. What changes is which ones: genes for building mitochondria are switched on much less strongly.",
+      "confidence": "medium",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/15454086/",
+        "https://rest.uniprot.org/uniprotkb/Q9UBK2.txt"
+      ]
+    },
+    {
+      "proteinId": "myoglobin",
+      "effect": "unchanged",
+      "claim": "Glycolysis carries on unchanged; myoglobin stores oxygen rather than breaking down sugar. Myoglobin-free mouse muscle still performed normally in standard tests.",
+      "confidence": "medium",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/9804424/",
+        "https://pubmed.ncbi.nlm.nih.gov/30918256/"
+      ]
+    },
+    {
+      "proteinId": "gapdh",
+      "effect": "stops",
+      "claim": "No other enzyme in the cell does GAPDH's step, so glycolysis halts there; the backup gene GAPDHS works only in sperm.",
+      "confidence": "medium",
+      "sources": [
+        "https://rest.uniprot.org/uniprotkb/P04406.txt",
+        "https://rest.uniprot.org/uniprotkb/O14556.txt",
+        "https://openstax.org/books/biology-2e/pages/7-2-glycolysis"
+      ]
+    }
+  ]
+}

@@ -24,6 +24,8 @@ export interface Protein3DProps {
   /** This gene's 0-100 score in the cell on screen. */
   expression: number
   dimmed: boolean
+  /** Fade the copies out of the cell (and back in when restored). */
+  knockedOut: boolean
 }
 
 export function Protein3D({
@@ -35,9 +37,12 @@ export function Protein3D({
   baseCount,
   expression,
   dimmed,
+  knockedOut,
 }: Protein3DProps) {
   const group = useRef<THREE.Group>(null)
   const elapsed = useRef(0)
+  // 1 = fully present, 0 = knocked out. Eased, so it fades rather than snaps.
+  const presence = useRef(1)
 
   const copies = copiesFor(baseCount, expression)
   const size = sizeFor(expression)
@@ -68,9 +73,14 @@ export function Protein3D({
   useFrame((_, delta) => {
     const g = group.current
     if (!g) return
-    material.opacity = dimmed ? 0.45 : 1
+
+    const target = knockedOut ? 0 : 1
+    presence.current += (target - presence.current) * Math.min(delta * (reduceMotion ? 60 : 5), 1)
+    material.opacity = (dimmed ? 0.45 : 1) * presence.current
+    g.visible = presence.current > 0.01
+
     if (reduceMotion) {
-      for (const child of g.children) child.scale.setScalar(size)
+      for (const child of g.children) child.scale.setScalar(size * presence.current)
       return
     }
     elapsed.current += delta
@@ -82,7 +92,7 @@ export function Protein3D({
       // Ease out, with a small overshoot so copies pop into place.
       const eased = 1 - Math.pow(1 - p, 3)
       const overshoot = p < 1 ? 1 + Math.sin(p * Math.PI) * 0.18 : 1
-      child.scale.setScalar(size * eased * overshoot)
+      child.scale.setScalar(size * eased * overshoot * presence.current)
     })
     if (settled) elapsed.current = GROW_SECONDS + g.children.length * STAGGER_SECONDS
   })

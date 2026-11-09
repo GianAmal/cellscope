@@ -30,11 +30,28 @@ export const WHAT_HAPPENS_IF_BROKEN_MAX_WORDS = 30
 export const GLOSSARY_MAX_WORDS = 25
 export const READING_NOTE_MAX_WORDS = 45
 export const CELL_PART_MAX_WORDS = 28
+export const ACTIVITY_LABEL_MAX_WORDS = 12
+export const KNOCKOUT_CLAIM_MAX_WORDS = 30
+
+/** What losing one protein does to its organelle's headline process. */
+export const KNOCKOUT_EFFECTS = ['stops', 'reduces', 'unchanged'] as const
+export type KnockoutEffect = (typeof KNOCKOUT_EFFECTS)[number]
+
+/** How well sourced a knockout claim is for human cells. */
+export const CONFIDENCE_LEVELS = ['high', 'medium', 'low'] as const
+export type Confidence = (typeof CONFIDENCE_LEVELS)[number]
 
 export interface Meta {
   version: number
   /** Shown in the UI next to every expression value. */
   expressionNote: string
+}
+
+/** The one process this organelle is animated doing. */
+export interface OrganelleActivity {
+  /** What the moving particles represent. Max 12 words. */
+  label: string
+  sources: string[]
 }
 
 export interface Organelle {
@@ -43,6 +60,7 @@ export interface Organelle {
   blurb: string
   /** At least one source URL (textbook page, NCBI Bookshelf, HPA, ...). */
   sources: string[]
+  activity: OrganelleActivity
 }
 
 export interface CellType {
@@ -90,6 +108,16 @@ export interface ProteinVisual {
   count: number
 }
 
+/** What the cell loses when this one protein is missing. */
+export interface Knockout {
+  effect: KnockoutEffect
+  /** What changes inside the cell. Max 30 words. Distinct from
+   *  whatHappensIfBroken, which is about the person. */
+  claim: string
+  confidence: Confidence
+  sources: string[]
+}
+
 export interface Protein {
   id: string
   name: string
@@ -99,6 +127,7 @@ export interface Protein {
   /** Max 30 words, readable by a 15-year-old. */
   whatHappensIfBroken: string
   visual: ProteinVisual
+  knockout: Knockout
 }
 
 /** Plain-language definition shown as a hover/focus gloss in the UI. */

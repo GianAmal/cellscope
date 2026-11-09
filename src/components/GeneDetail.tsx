@@ -3,6 +3,7 @@ import { cellHasOrganelle, cellName, getGene, getOrganelle, proteinFor } from '.
 import { useSelection } from '../state/selection'
 import { ExpressionChart } from './ExpressionChart'
 import { Score } from './ExpressionNote'
+import { KnockoutBanner, KnockoutToggle } from './KnockoutPanel'
 import { SourceList } from './SourceList'
 import { Term } from './Term'
 
@@ -60,8 +61,18 @@ export function GeneDetail() {
         </p>
       </header>
 
+      {protein && sel.knockout && (
+        <KnockoutBanner
+          gene={gene}
+          protein={protein}
+          organelle={organelle}
+          cellName={cell}
+          organellePresent={present}
+        />
+      )}
+
       {protein && (
-        <div className="rounded-lg bg-slate-50 p-4">
+        <div className={`rounded-lg bg-slate-50 p-4 ${sel.knockout ? 'opacity-60' : ''}`}>
           <p className="text-sm font-medium text-slate-500">
             The <Term id="protein">protein</Term> it makes
           </p>
@@ -88,12 +99,23 @@ export function GeneDetail() {
         </div>
       )}
 
-      {protein && (
+      {protein && !sel.knockout && (
         <div className="rounded-lg border-l-4 border-oi-vermillion bg-orange-50 p-4">
           <h3 className="font-semibold">
             <span aria-hidden="true">⚠ </span>What happens if it's broken
           </h3>
           <p className="mt-1">{protein.whatHappensIfBroken}</p>
+        </div>
+      )}
+
+      {protein && (
+        <div className="flex flex-wrap items-center gap-3 rounded-lg border border-dashed border-slate-300 p-3">
+          <KnockoutToggle gene={gene} />
+          <p className="text-sm text-slate-600">
+            {sel.knockout
+              ? 'The protein has been removed from the cell above.'
+              : 'See what this cell loses without it.'}
+          </p>
         </div>
       )}
 

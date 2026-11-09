@@ -19,6 +19,9 @@ export interface Selection {
   compare: [CellTypeId, CellTypeId]
   /** 3D is an enhancement: the app stays fully usable with it off. */
   show3d: boolean
+  /** Knock the selected gene out: its protein leaves the cell. Cleared
+   *  whenever the selected gene changes, so it can't silently carry over. */
+  knockout: boolean
 }
 
 type Action =
@@ -30,6 +33,7 @@ type Action =
   | { type: 'setCompare'; index: 0 | 1; cell: CellTypeId }
   | { type: 'openGene'; gene: string; cell?: CellTypeId }
   | { type: 'set3d'; on: boolean }
+  | { type: 'setKnockout'; on: boolean }
   | { type: 'replace'; sel: Selection }
 
 const DEFAULT: Selection = {
@@ -40,6 +44,7 @@ const DEFAULT: Selection = {
   cellPart: null,
   compare: ['muscle', 'neuron'],
   show3d: true,
+  knockout: false,
 }
 
 const isCell = (v: unknown): v is CellTypeId => CELL_TYPE_IDS.includes(v as CellTypeId)
@@ -63,6 +68,7 @@ function fromHash(hash: string): Selection {
     cellPart: part && getPart(part)?.shape === shape ? part : null,
     compare: [isCell(cmp[0]) ? cmp[0] : DEFAULT.compare[0], isCell(cmp[1]) ? cmp[1] : DEFAULT.compare[1]],
     show3d: p.get('no3d') !== '1' && noSearch !== '1',
+    knockout: p.get('ko') === '1' && Boolean(gene && getGene(gene)),
   }
 }
 
@@ -72,6 +78,7 @@ function toHash(s: Selection): string {
   if (s.organelle) p.set('organelle', s.organelle)
   if (s.cellPart) p.set('part', s.cellPart)
   if (!s.show3d) p.set('no3d', '1')
+  if (s.knockout) p.set('ko', '1')
   return '#' + p.toString()
 }
 
@@ -89,7 +96,7 @@ function reducer(s: Selection, a: Action): Selection {
         cellPart: s.cellPart && getPart(s.cellPart)?.shape === getCell(a.cell)?.shape ? s.cellPart : null,
       }
     case 'setGene':
-      return { ...s, gene: a.gene }
+      return { ...s, gene: a.gene, knockout: a.gene === s.gene ? s.knockout : false }
     case 'setOrganelle':
       // Idempotent on purpose: a 3D click can hit two meshes of the same
       // organelle, and a toggle would select then immediately deselect.
@@ -102,9 +109,11 @@ function reducer(s: Selection, a: Action): Selection {
       return { ...s, compare }
     }
     case 'openGene':
-      return { ...s, mode: 'explore', gene: a.gene, cell: a.cell ?? s.cell }
+      return { ...s, mode: 'explore', gene: a.gene, cell: a.cell ?? s.cell, knockout: false }
     case 'set3d':
       return { ...s, show3d: a.on }
+    case 'setKnockout':
+      return { ...s, knockout: a.on }
     case 'replace':
       return a.sel
   }

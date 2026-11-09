@@ -5,8 +5,9 @@
 import { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
-import type { CellType, OrganelleId, ProteinPrimitive } from '../data/schema'
+import type { CellType, KnockoutEffect, OrganelleId, ProteinPrimitive } from '../data/schema'
 import { getOrganelle, getPart, partsForShape } from '../data'
+import { ActivityFlow } from './ActivityFlow'
 import { CellShell } from './CellShell'
 import { CellTransition } from './CellTransition'
 import { Protein3D } from './Protein3D'
@@ -28,6 +29,10 @@ export interface SceneProtein {
   expression: number
   /** False when this cell type has no such organelle. */
   organellePresent: boolean
+  /** The reader has knocked this gene out. */
+  knockedOut: boolean
+  /** What the sources say losing it does to the organelle's process. */
+  effect: KnockoutEffect
 }
 
 export interface CellSceneProps {
@@ -103,6 +108,16 @@ export function CellScene({ cell, focus, protein, onSelectOrganelle, onSelectPar
             />
           ))}
 
+          {protein && protein.organellePresent && (
+            <ActivityFlow
+              shape={cell.shape}
+              organelle={protein.location}
+              effect={protein.effect}
+              knockedOut={protein.knockedOut}
+              dimmed={focus !== null && focus !== protein.location}
+            />
+          )}
+
           {protein && copies > 0 && (
             <Protein3D
               // Remount on any change so the copies animate in again.
@@ -115,6 +130,7 @@ export function CellScene({ cell, focus, protein, onSelectOrganelle, onSelectPar
               baseCount={protein.baseCount}
               expression={protein.expression}
               dimmed={focus !== null && focus !== protein.location}
+              knockedOut={protein.knockedOut}
             />
           )}
           </CellTransition>
@@ -139,7 +155,12 @@ export function CellScene({ cell, focus, protein, onSelectOrganelle, onSelectPar
       )}
       {protein && (
         <p className="pointer-events-none absolute bottom-8 left-3 right-3 rounded-md bg-slate-950/80 px-2 py-1.5 text-xs text-slate-100 sm:bottom-2 sm:right-48">
-          {copies > 0 ? (
+          {protein.knockedOut ? (
+            <>
+              <span className="font-semibold">{protein.geneSymbol}</span> knocked out — no {protein.name} in this
+              cell.
+            </>
+          ) : copies > 0 ? (
             <>
               <span className="font-semibold">{protein.geneSymbol}</span> → {protein.name} in the{' '}
               {getOrganelle(protein.location)?.name.toLowerCase() ?? protein.location}.{' '}

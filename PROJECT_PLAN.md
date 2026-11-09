@@ -353,12 +353,15 @@ difference matches the bar chart. Commit.
 ---
 
 ### Phase 5 — Break something (the payoff feature)
-- [ ] **ui-builder**: "knock out this gene" toggle
-- [ ] **scene-builder**: knocked-out protein fades out of the scene
-- [ ] **ui-builder**: show `whatHappensIfBroken` prominently when knocked out
-- [ ] **scene-builder**: one stylized downstream animation per organelle type
-      (e.g. knocking out `SLC2A1` → glucose particles stop crossing the membrane)
-- [ ] **bio-factcheck**: verify every knockout consequence claim
+- [x] **ui-builder**: "knock out this gene" toggle
+- [x] **scene-builder**: knocked-out protein fades out of the scene
+- [x] **ui-builder**: show `whatHappensIfBroken` prominently when knocked out
+- [x] **scene-builder**: one stylized downstream animation per organelle type.
+      NOTE: the plan's own example was wrong — fact-check found GLUT1-null human
+      red cells still take up glucose, so SLC2A1 knockout *slows* the particles
+      rather than stopping them. 10 of 14 knockouts leave their organelle's job
+      running; see docs/curation/factcheck-phase5.md
+- [x] **bio-factcheck**: verify every knockout consequence claim
 
 **Done when:** the knockout story for at least 5 genes is accurate and visually
 legible. Commit.
